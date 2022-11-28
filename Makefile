@@ -1,58 +1,57 @@
 # Meta
 
-NAME := libftprintf.a
+NAME := fdf
 
-INCDIR := ./include
 SRCDIR := ./src
 OBJDIR := ./obj
 
 SRC :=\
-ft_printf.c \
-ft_put_base.c \
-ft_putdec.c \
-ft_puthex.c \
-ft_putptr.c \
-ft_write_str.c \
-ft_write_char.c \
+main.c \
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
-# libft
+ARCH := $(shell uname)
 
-FT_DIR := ./libft/
-FT_AR := $(FT_DIR)/libft.a
-FT_FLAGS := -I$(FT_DIR) 
+# MiniLibX
+
+ifeq ($(ARCH), Linux)
+MLX_DIR := ./third-party/minilibx-linux
+MLX_LINK := -L$(MLX_DIR) -lmlx -lXext -lX11
+else
+MLX_DIR := ./third-party/minilibx-macos
+MLX_LINK := -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+endif
+MLX_INCLUDE := -I$(MLX_DIR)
+MLX_AR := $(MLX_DIR)/libmlx.a
 
 # Compilation and linking
 
 CC := cc
-CFLAGS := -g -Wall -Werror -Wextra -I$(INCDIR) $(FT_FLAGS)
+CFLAGS := -g -Wall -Werror -Wextra
 
 
 all: $(NAME)
 
-$(NAME): $(FT_AR) $(OBJ)
-	ar rus $(NAME) $(OBJ)
+$(NAME): $(MLX_AR) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(MLX_LINK)
 
-$(FT_AR):
-	$(MAKE) -C $(FT_DIR)
-	cp $(FT_AR) ./$(NAME)
+$(MLX_AR):
+	$(MAKE) -C $(MLX_DIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c  
 	@$(shell [ ! -d $(@D) ] && mkdir -p $(@D))
-	$(CC) -c $(CFLAGS) $< -o $@
-	$(CC) -MM $(CFLAGS) $< > $@.d
+	$(CC) -c $(CFLAGS) $(MLX_INCLUDE) -o $@ $<
+	$(CC) -MM $(CFLAGS) $@ > $@.d
 
 # Include dependency info
--include $(OBJDIR)/$(OBJ:.o=.o.d)
+#-include $(OBJDIR)/$(OBJ:.o=.o.d)
 
 clean:
 	/bin/rm -rf $(OBJDIR)
-	make clean -C $(FT_DIR)
+	make clean -C $(MLX_DIR)
 
 fclean: clean
 	/bin/rm -f $(NAME)
-	make fclean -C $(FT_DIR)
 
 re: fclean all
 
