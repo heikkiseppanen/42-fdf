@@ -7,6 +7,9 @@ OBJDIR := ./obj
 
 SRC :=\
 main.c \
+int2.c \
+window.c \
+input.c \
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -21,14 +24,15 @@ else
 MLX_DIR := ./third-party/minilibx-macos
 MLX_LINK := -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
-MLX_INCLUDE := -I$(MLX_DIR)
 MLX_AR := $(MLX_DIR)/libmlx.a
 
 # Compilation and linking
 
 CC := cc
-CFLAGS := -g -Wall -Werror -Wextra
+INCLUDE := -I$(MLX_DIR) -I$(SRCDIR)
+CFLAGS := -g -Wall -Werror -Wextra $(INCLUDE)
 
+# Rules
 
 all: $(NAME)
 
@@ -40,8 +44,8 @@ $(MLX_AR):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c  
 	@$(shell [ ! -d $(@D) ] && mkdir -p $(@D))
-	$(CC) -c $(CFLAGS) $(MLX_INCLUDE) -o $@ $<
-	$(CC) -MM $(CFLAGS) $@ > $@.d
+	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -MM $(CFLAGS) $< > $@.d
 
 # Include dependency info
 #-include $(OBJDIR)/$(OBJ:.o=.o.d)
