@@ -20,11 +20,12 @@ ARCH := $(shell uname)
 ifeq ($(ARCH), Linux)
 MLX_DIR := ./third-party/minilibx-linux
 MLX_LINK := -L$(MLX_DIR) -lmlx -lXext -lX11
-else
-MLX_DIR := ./third-party/minilibx-macos
-MLX_LINK := -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-endif
 MLX_AR := $(MLX_DIR)/libmlx.a
+else
+MLX_DIR := /usr/local/include
+MLX_LINK := -lmlx -framework OpenGL -framework AppKit
+MLX_AR := /usr/local/lib/libmlx.a
+endif
 
 # Compilation and linking
 
@@ -52,7 +53,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	/bin/rm -rf $(OBJDIR)
+ifeq ($ARCH, Linux)
 	make clean -C $(MLX_DIR)
+endif
 
 fclean: clean
 	/bin/rm -f $(NAME)

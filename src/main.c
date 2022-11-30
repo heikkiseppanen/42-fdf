@@ -6,12 +6,13 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/29 17:33:46 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:59:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <int2.h>
 #include <window.h>
+#include <input.h>
 
 #include <mlx.h>
 
@@ -33,7 +34,8 @@ typedef struct s_framebuf
 {
 	void	*mlx_image;
 	char	*data;
-	t_int2	dim;
+	int		width;
+	int		height;
 } t_framebuf;
 
 int main(int argc, char **argv)
@@ -44,6 +46,6 @@ int main(int argc, char **argv)
 
 	if (!window_init(&win, 1280, 720, "FdF"))
 		return (1);
-	mlx_key_hook(win.winptr, );
+	mlx_key_hook(win.winptr, key_hook, &win);
 	mlx_loop(win.mlxptr);
 }
