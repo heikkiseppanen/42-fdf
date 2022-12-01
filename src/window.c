@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/30 10:45:13 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:41:50 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	window_init(t_window *win, int width, int height, char *title)
 	win->winptr = mlx_new_window(win->mlxptr, width, height, title);
 	if (!win->winptr)
 		return (0);
+	if (!framebuf_init(
 	win->width = width;
 	win->height = height;
 	return (1);

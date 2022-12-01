@@ -10,6 +10,7 @@ main.c \
 int2.c \
 window.c \
 input.c \
+rasterizer.c \ 
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

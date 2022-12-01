@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/30 15:43:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/01 08:16:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 # include "macos/keycodes.h"
 #endif
 
-#include <stdio.h>
 #include <stdlib.h>
 
-int key_hook(int keycode, void *param)
+int	key_hook(int keycode, void *param)
 {
 	t_window *const	win = param;
 
@@ -30,6 +29,5 @@ int key_hook(int keycode, void *param)
 		window_destroy(win);
 		exit(0);
 	}
-	printf("%i\n", keycode);
 	return (1);
 }
