@@ -6,64 +6,30 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/01 15:40:36 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:03:16 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rasterizer.h"
+#include "window.h"
+#include "int2.h"
 
-int		framebuf_init(t_framebuf *buf, const t_window *win)
-{
-	void			*img;
-	unsigned char	*data;
-	int				bits;
-	int				width;
-	int				endian;
+#include <mlx.h>
 
-	img = mlx_new_image(win->mlxptr, win->width, win->height);
-	if (!img)
-		return (0);
-	data = mlx_get_data_addr(img, &bits, &width, &endian);
-	if (!data)
-		return (0);
-	buf->mlx_img = img;
-	buf->data = data;
-	buf->pixel_bits = bits;
-	buf->line_width = width;
-	buf->endian = endian;
-	return (1)
-}
-void	framebuf_destroy(t_framebuf *buf, const t_window *win);
-{
-	mlx_destroy_image(win->mlx_ptr, buf->mlx_img);
-	buf->mlx_img = NULL;
-	buf->data = NULL;
-	buf->pixel_bits = 0;
-	buf->line_width = 0;
-	buf->endian = 0;
-}
+#include <math.h> // For M_PI
 
 // TODO big-endian support
 
-int	render_hook(void *param)
-{
-	t_window *const buf = param;
-	mlx_clear_window(win.mlxptr, win.winptr);
-	draw_line(
-}
-
 void	put_pixel(t_framebuf *buf, t_int2 coord, unsigned int color)
 {
-	int	i;
-	int	bits; 
+	int				color_bytes;
+	unsigned int	offset;
 
-	i = coord.x + coord.y * buf->line_width;
-	bits = buf->pixel_bits;
-	while (bits--)
-	{
-		buf->data[i++] = (unsigned char)(color & 0xFF);
-		color >>= 1;
-	{
+	color_bytes = buf->color_depth / 8; 
+	offset = coord.x * color_bytes + coord.y * buf->width;
+	if (buf->color_depth == 32)
+		*(unsigned int*)(buf->data + offset) = color;
+	if (buf->color_depth == 16)
+		*(unsigned short*)(buf->data + offset) = color & 0xFFFF;
 }
 
 void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
@@ -84,7 +50,19 @@ void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
 	{
 		out.y = a.y + dif.y * (out.x - a.x) / dif.x;
 		put_pixel(buf, out, color);
-		x_out++;
+		out.x++;
 	}
 }
 
+int	render_hook(void *param)
+{
+	t_window *const		win = param;
+
+	t_int2 a = {win->width / 2, win->height / 2};
+	t_int2 b = {a.x + 256, a.y + 256};
+
+	mlx_clear_window(win->mlx, win->mlxwin);
+	draw_line(&win->buf, a, b, mlx_get_color_value(win->mlx, 0x00FFFFFF));
+	mlx_put_image_to_window(win->mlx, win->mlxwin, win->mlximg, 0, 0);
+	return (1);
+}
