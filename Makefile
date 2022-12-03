@@ -13,6 +13,7 @@ input.c \
 rasterizer.c
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
+DEP := $(OBJ:%.o=%.d)
 
 ARCH := $(shell uname)
 
@@ -20,11 +21,11 @@ ARCH := $(shell uname)
 
 ifeq ($(ARCH), Linux)
 MLX_DIR := ./third-party/minilibx-linux
-MLX_LINK := -L$(MLX_DIR) -lmlx -lXext -lX11
+MLX_LD := -lXext -lX11 -L$(MLX_DIR) -lmlx 
 MLX_AR := $(MLX_DIR)/libmlx.a
 else
 MLX_DIR := /usr/local/include
-MLX_LINK := -lmlx -framework OpenGL -framework AppKit
+MLX_LD := -lmlx -framework OpenGL -framework AppKit
 MLX_AR := /usr/local/lib/libmlx.a
 endif
 
@@ -33,24 +34,24 @@ endif
 CC := cc
 INCLUDE := -I$(MLX_DIR) -I$(SRCDIR)
 CFLAGS := -g -Wall -Werror -Wextra $(INCLUDE)
+LDFLAGS := -lm $(MLX_LD) 
 
 # Rules
 
 all: $(NAME)
 
 $(NAME): $(MLX_AR) $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(MLX_LINK)
+	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 $(MLX_AR):
 	$(MAKE) -C $(MLX_DIR)
 
+# Include dependency info
+-include $(DEP)
+
 $(OBJDIR)/%.o: $(SRCDIR)/%.c  
 	@$(shell [ ! -d $(@D) ] && mkdir -p $(@D))
-	$(CC) -c $(CFLAGS) -o $@ $<
-	$(CC) -MM $(CFLAGS) $< > $@.d
-
-# Include dependency info
-#-include $(OBJDIR)/$(OBJ:.o=.o.d)
+	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
 
 clean:
 	/bin/rm -rf $(OBJDIR)
