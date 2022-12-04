@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 20:11:46 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:05:18 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	update_rendering(void *param)
+int	render_mesh(void *param)
 {
-	t_window *const		win = param;
+	t_framebuf *const		win = param;
 
 	t_float3 a = {win->width / 2, win->height / 2, 0};
 	t_float3 line = {1, 256, 0};
