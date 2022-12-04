@@ -6,12 +6,12 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/02 14:03:16 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:02:41 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
-#include "int2.h"
+#include "float3.h"
 
 #include <mlx.h>
 
@@ -19,24 +19,24 @@
 
 // TODO big-endian support
 
-void	put_pixel(t_framebuf *buf, t_int2 coord, unsigned int color)
+void	put_pixel(t_framebuf *buf, t_float3 pos, unsigned int color)
 {
-	int				color_bytes;
-	unsigned int	offset;
+	int	offset;
 
-	color_bytes = buf->color_depth / 8; 
-	offset = coord.x * color_bytes + coord.y * buf->width;
-	if (buf->color_depth == 32)
+	if (pos.x < 0 || pos.y < 0 || pos.x >= buf->width || pos.y >= buf->height)
+		return ;
+	offset = (int)pos.x * buf->color_bytes + (int)pos.y * buf->width * buf->color_bytes;
+	if (buf->color_bytes == 4)
 		*(unsigned int*)(buf->data + offset) = color;
-	if (buf->color_depth == 16)
+	if (buf->color_bytes == 2)
 		*(unsigned short*)(buf->data + offset) = color & 0xFFFF;
 }
 
-void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
+void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 {
-	t_int2	dif;
-	t_int2	out;
-	t_int2	tmp;
+	t_float3	dif;
+	t_float3	out;
+	t_float3	tmp;
 
 	if (a.x > b.x)
 	{
@@ -44,7 +44,7 @@ void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
 		a = b;
 		b = tmp;
 	}
-	dif = int2_sub(b, a);
+	dif = float3_add(b, a);
 	out.x = a.x;
 	while (out.x <= b.x)
 	{
@@ -58,10 +58,20 @@ int	render_hook(void *param)
 {
 	t_window *const		win = param;
 
-	t_int2 a = {win->width / 2, win->height / 2};
-	t_int2 b = {a.x + 256, a.y + 256};
+	t_float3 a = {win->width / 2, win->height / 2, 0};
+	t_float3 line = {1, 256, 0};
+	static double angle = 0;
+	char *buf = win->buf.data;
+	int size =  win->buf.height * win->buf.width * win->buf.color_bytes;
 
+	while (size--)
+		*buf++ = 0;
 	mlx_clear_window(win->mlx, win->mlxwin);
+	t_float3 b = float3_add(a, float3_rotate(line, angle));
+	if (angle <= 2 * M_PI)
+		angle += 0.05;
+	else
+		angle = 0;
 	draw_line(&win->buf, a, b, mlx_get_color_value(win->mlx, 0x00FFFFFF));
 	mlx_put_image_to_window(win->mlx, win->mlxwin, win->mlximg, 0, 0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/02 11:43:51 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:02:56 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 typedef struct s_framebuf
 {
 	char	*data;
-	int		color_depth;
+	int		color_bytes;
 	int		width;
+	int		height;
 	int		endian;
 } t_framebuf;
 

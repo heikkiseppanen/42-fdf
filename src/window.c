@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/02 22:44:10 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:26:35 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,37 @@
 
 #include <mlx.h>
 
-static int	framebuf_init(t_framebuf *buf, void *mlximg)
+static int	framebuf_init(t_framebuf *buf, t_window *win)
 {
-	int bits;
+	int bytes;
 	int width;
 	int endian;
 
-	buf->data = mlx_get_data_addr(mlximg, &bits, &width, &endian);
+	buf->data = mlx_get_data_addr(win->mlximg, &bytes, &width, &endian);
 	if (!buf->data)
 		return (0);
-	buf->color_depth = bits;
-	buf->width = width;
+	buf->color_bytes = bytes / 8;
+	buf->width = win->width;
+	buf->height = win->height;
 	buf->endian = endian;
 	return (1);
 }
 
 int	window_init(t_window *win, int width, int height, char *title)
 {
+	win->width = width;
+	win->height = height;
 	win->mlx = mlx_init();
 	if (!win->mlx)
 		return (0);
-	win->mlxwin = mlx_new_window(win->mlx, width, height, title);
+	win->mlxwin = mlx_new_window(win->mlx, win->width, win->height, title);
 	if (!win->mlxwin)
 		return (0);
-	win->mlximg = mlx_new_image(win->mlx, width, height);
+	win->mlximg = mlx_new_image(win->mlx, win->width, win->height);
 	if (!win->mlximg)
 		return (0);
-	if (!framebuf_init(&win->buf, win->mlximg))
+	if (!framebuf_init(&win->buf, win))
 		return (0);
-	win->width = width;
-	win->height = height;
 	return (1);
 }
 
@@ -57,7 +58,6 @@ void	window_destroy(t_window *win)
 	mlx_destroy_display(win->mlx);
 	win->mlx= 0;
 	win->mlxwin = 0;
-	win->mlximg = 0;
 	win->width = 0;
 	win->height = 0;
 }
