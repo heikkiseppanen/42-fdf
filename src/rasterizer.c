@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 20:02:41 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:11:46 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		a = b;
 		b = tmp;
 	}
-	dif = float3_add(b, a);
+	dif = float3_sub(b, a);
 	out.x = a.x;
 	while (out.x <= b.x)
 	{
@@ -54,7 +54,7 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	render_hook(void *param)
+int	update_rendering(void *param)
 {
 	t_window *const		win = param;
 

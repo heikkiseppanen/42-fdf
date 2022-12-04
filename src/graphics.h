@@ -6,12 +6,12 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 20:03:31 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:07:11 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RASTERIZER_H
-# define RASTERIZER_H
+#ifndef GRAPHICS_H
+# define GRAPHICS_H
 
 int		update_rendering(void *param);
 
