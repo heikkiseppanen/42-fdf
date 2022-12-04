@@ -6,11 +6,11 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 21:16:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:28:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "float3.h"
+#include "math.h"
 #include "window.h"
 #include "input.h"
 #include "graphics.h"

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 20:06:36 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:28:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <math.h>
 
-t_float3 float3_add(t_float3 a, t_float3 b)
+t_float3 ft_float3_add(t_float3 a, t_float3 b)
 {
 	a.x += b.x;
 	a.y += b.y;
@@ -22,7 +22,7 @@ t_float3 float3_add(t_float3 a, t_float3 b)
 	return (a);
 }
 
-t_float3 float3_sub(t_float3 a, t_float3 b)
+t_float3 ft_float3_sub(t_float3 a, t_float3 b)
 {
 	a.x -= b.x;
 	a.y -= b.y;
@@ -30,7 +30,7 @@ t_float3 float3_sub(t_float3 a, t_float3 b)
 	return (a);
 }
 
-t_float3 float3_rotate(t_float3 a, double rad)
+t_float3 ft_float3_rotate(t_float3 a, double rad)
 {
 	t_float3 new;
 

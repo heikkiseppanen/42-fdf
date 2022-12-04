@@ -6,12 +6,12 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 21:05:18 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/04 21:28:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "window.h"
-#include "float3.h"
+#include "math.h"
 
 #include <mlx.h>
 
@@ -44,7 +44,7 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		a = b;
 		b = tmp;
 	}
-	dif = float3_sub(b, a);
+	dif = ft_float3_sub(b, a);
 	out.x = a.x;
 	while (out.x <= b.x)
 	{
@@ -54,7 +54,7 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	render_mesh(void *param)
+int	render_hook(void *param)
 {
 	t_framebuf *const		win = param;
 
@@ -67,7 +67,7 @@ int	render_mesh(void *param)
 	while (size--)
 		*buf++ = 0;
 	mlx_clear_window(win->mlx, win->mlxwin);
-	t_float3 b = float3_add(a, float3_rotate(line, angle));
+	t_float3 b = ft_float3_add(a, ft_float3_rotate(line, angle));
 	if (angle <= 2 * M_PI)
 		angle += 0.05;
 	else
