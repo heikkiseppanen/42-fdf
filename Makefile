@@ -7,7 +7,7 @@ OBJDIR := ./obj
 
 SRC :=\
 main.c \
-int2.c \
+float3.c \
 window.c \
 input.c \
 rasterizer.c
