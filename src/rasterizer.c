@@ -6,15 +6,16 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 21:28:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:34:29 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "graphics.h"
+
 #include "window.h"
-#include "math.h"
+#include "ft_math.h"
 
 #include <mlx.h>
-
 #include <math.h> // For M_PI
 
 // TODO big-endian support
@@ -54,25 +55,18 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	render_hook(void *param)
+int	draw_wireframe(t_framebuf *out, t_mesh *mesh, unsigned int color)
 {
-	t_framebuf *const		win = param;
+	unsigned int i;
+	unsigned int a;
+	unsigned int b;
 
-	t_float3 a = {win->width / 2, win->height / 2, 0};
-	t_float3 line = {1, 256, 0};
-	static double angle = 0;
-	char *buf = win->buf.data;
-	int size =  win->buf.height * win->buf.width * win->buf.color_bytes;
-
-	while (size--)
-		*buf++ = 0;
-	mlx_clear_window(win->mlx, win->mlxwin);
-	t_float3 b = ft_float3_add(a, ft_float3_rotate(line, angle));
-	if (angle <= 2 * M_PI)
-		angle += 0.05;
-	else
-		angle = 0;
-	draw_line(&win->buf, a, b, mlx_get_color_value(win->mlx, 0x00FFFFFF));
-	mlx_put_image_to_window(win->mlx, win->mlxwin, win->mlximg, 0, 0);
+	i = 0;
+	while (i < 3)
+	{
+		a = mesh->idx[i++];
+		b = mesh->idx[i];
+		draw_line(out, mesh->vert[a], mesh->vert[b], color);
+	}
 	return (1);
 }

@@ -6,11 +6,11 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 21:28:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:59:09 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "float3.h"
+#include "ft_math.h"
 
 #include <math.h>
 

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 21:28:48 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:16:32 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ typedef struct s_float4x4
 t_float3 	ft_float3_add(t_float3 a, t_float3 b);
 t_float3	ft_float3_sub(t_float3 a, t_float3 b);
 t_float3	ft_float3_rotate(t_float3 a, double rad);
+
+t_float4x4	ft_float4x4_id(t_float3 corner_a, t_float3 corner_b)
 
 #endif

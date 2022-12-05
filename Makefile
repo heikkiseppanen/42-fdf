@@ -7,10 +7,12 @@ OBJDIR := ./obj
 
 SRC :=\
 main.c \
+app.c \
 float3.c \
 window.c \
 input.c \
-rasterizer.c
+rasterizer.c \
+mesh.c
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 DEP := $(OBJ:%.o=%.d)

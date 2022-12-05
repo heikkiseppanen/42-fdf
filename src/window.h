@@ -6,14 +6,12 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 20:02:56 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/05 10:59:40 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 # define WINDOW_H
-
-# include "graphics.h"
 
 typedef struct s_framebuf
 {
