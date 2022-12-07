@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 16:23:31 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:56:48 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
 //
 t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r)
 {
-	const t_float4 out = {
+	const t_float3 out = {
 	l->a.x * r->x + l->a.y * r->y + l->a.z * r->z + l->a.w,
 		l->b.x * r->x + l->b.y * r->y + l->b.z * r->z + l->b.w,
-		l->c.x * r->x + l->c.y * r->y + l->c.z * r->z + l->c.w,
-		l->d.x * r->x + l->d.y * r->y + l->d.z * r->z + l->d.w
+		l->c.x * r->x + l->c.y * r->y + l->c.z * r->z + l->c.w
 	};
 	
-	return ((t_float3){out.x / out.w, out.y / out.w, out.z / out.w});
+	return (out);
 }
 
 t_float3	float3_rotate(const t_float3 *l, const t_float3 *axis, double rad)
@@ -60,3 +59,5 @@ t_float3	float3_rotate(const t_float3 *l, const t_float3 *axis, double rad)
 	out.z = 0; // TODO
 	return (out);
 }
+
+

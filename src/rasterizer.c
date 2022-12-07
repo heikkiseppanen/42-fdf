@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 16:25:06 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:23:12 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		a = b;
 		b = tmp;
 	}
+	a.x = buf->width  / 2 + (a.x * (buf->width / 2)); 
+	a.y = buf->height / 2 + (a.y * (buf->height / 2)); 
+	b.x = buf->width  / 2 + (b.x * (buf->width / 2)); 
+	b.y = buf->height / 2 + (b.y * (buf->height / 2)); 
 	dif = float3_sub(&b, &a);
 	out.x = a.x;
 	while (out.x <= b.x)
@@ -57,17 +61,27 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 
 int	draw_wireframe(t_framebuf *out, t_mesh *mesh, unsigned int color)
 {
+	static float angle = 0.0;
+	if (angle < 2 * M_PI)
+		angle += 0.01;
+	else
+		angle = 0.0;
+	unsigned int m = 0;
+	unsigned int n = out->width * out->color_bytes * out->height;
+	while (m < n)
+		out->data[m++] = 0;
 	unsigned int i;
 	unsigned int a;
 	unsigned int b;
 	t_float4x4 trans = float4x4_id();
 	const t_float3 oa = {-2.0, -2.0, 2.0};
 	const t_float3 ob = {2.0, 2.0, -2.0};
-	const t_float4x4 ortho = float4x4_ortho(&oa, &ob);
+	const t_float3 ax = {0.0, 1.0, 0.0};
 
+	trans = float4x4_rot(&trans, &ax, angle);
+	trans = float4x4_ortho(&trans, &oa, &ob);
 	i = 0;
-	trans = float4x4_mul(&trans, &ortho);
-	while (i < 4)
+	while (i < 3)
 	{
 		a = mesh->idx[i++];
 		b = mesh->idx[i];
@@ -75,5 +89,10 @@ int	draw_wireframe(t_framebuf *out, t_mesh *mesh, unsigned int color)
 				float3_transform(&trans, &mesh->vert[a]),
 				float3_transform(&trans, &mesh->vert[b]), color);
 	}
+		a = mesh->idx[i];
+		b = mesh->idx[i - 3];
+		draw_line(out, 
+				float3_transform(&trans, &mesh->vert[a]),
+				float3_transform(&trans, &mesh->vert[b]), color);
 	return (1);
 }

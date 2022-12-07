@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/05 15:40:06 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/07 20:11:22 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	app_init(t_app *instance, char *map_path)
 {
-	if (!window_init(&instance->win, 1280, 720, "FdF"))
+	if (!window_init(&instance->win, 512, 512, "FdF"))
 		return (0);
 	if (!mesh_load(&instance->map, map_path))
 		return (0);

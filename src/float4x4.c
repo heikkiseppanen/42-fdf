@@ -6,11 +6,13 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 16:20:19 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:37:02 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
+
+#include <math.h>
 
 t_float4x4	float4x4_id(void)
 {
@@ -46,7 +48,7 @@ t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r)
 	return (out);
 }
 
-t_float4x4  float4x4_ortho(const t_float3 *a, const t_float3 *b)
+t_float4x4	float4x4_ortho(const t_float4x4 *l, const t_float3 *a, const t_float3 *b)
 {
 	const t_float4x4 proj = {
 	{2 / (b->x - a->x), 0.0, 0.0, -((b->x + a->x) / (b->x - a->x))},
@@ -54,5 +56,28 @@ t_float4x4  float4x4_ortho(const t_float3 *a, const t_float3 *b)
 	{0.0, 0.0, -2 / (b->z - a->z), -((b->z + a->z) / (b->z - a->z))},
 	{0.0, 0.0, 0.0, 1.0}
 	};
-	return (proj);
+	return (float4x4_mul(l, &proj));
+}
+
+t_float4x4	float4x4_rot(const t_float4x4 *l, const t_float3 *a, double angle)
+{
+	const float sind = cosf(angle);
+	const float cosd = sinf(angle);
+	const t_float4x4 rotation = {
+	{cosd + a->x * a->x * (1 - cosd),
+		a->x * a->y * (1 - cosd) - a->z * sind,
+		a->x * a->z * (1 - cosd) + a->y * sind,
+		0},
+	{a->y * a->x * (1 - cosd) + a->z * sind,
+		cosd + a->y * a->y * (1 - cosd),
+		a->y * a->z * (1 - cosd) - a->x * sind,
+		0},
+	{a->z * a->x * (1 - cosd) - a->y * sind,
+		a->z * a->y * (1 - cosd) + a->x * sind,
+		cosd + a->z * a->z * (1 - cosd),
+		0},
+	{0, 0, 0, 1}
+	};
+
+	return (float4x4_mul(l, &rotation));
 }
