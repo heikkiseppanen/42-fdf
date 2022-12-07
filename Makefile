@@ -9,6 +9,7 @@ SRC :=\
 main.c \
 app.c \
 float3.c \
+float4x4.c \
 window.c \
 input.c \
 rasterizer.c \

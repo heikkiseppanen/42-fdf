@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/05 15:34:29 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:25:06 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		a = b;
 		b = tmp;
 	}
-	dif = ft_float3_sub(b, a);
+	dif = float3_sub(&b, &a);
 	out.x = a.x;
 	while (out.x <= b.x)
 	{
@@ -60,13 +60,20 @@ int	draw_wireframe(t_framebuf *out, t_mesh *mesh, unsigned int color)
 	unsigned int i;
 	unsigned int a;
 	unsigned int b;
+	t_float4x4 trans = float4x4_id();
+	const t_float3 oa = {-2.0, -2.0, 2.0};
+	const t_float3 ob = {2.0, 2.0, -2.0};
+	const t_float4x4 ortho = float4x4_ortho(&oa, &ob);
 
 	i = 0;
-	while (i < 3)
+	trans = float4x4_mul(&trans, &ortho);
+	while (i < 4)
 	{
 		a = mesh->idx[i++];
 		b = mesh->idx[i];
-		draw_line(out, mesh->vert[a], mesh->vert[b], color);
+		draw_line(out, 
+				float3_transform(&trans, &mesh->vert[a]),
+				float3_transform(&trans, &mesh->vert[b]), color);
 	}
 	return (1);
 }
