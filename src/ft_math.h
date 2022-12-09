@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 19:36:11 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:05:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,23 @@ typedef struct s_float4
 
 typedef struct s_float4x4
 {
-	t_float4 a;
-	t_float4 b;
-	t_float4 c;
-	t_float4 d;
+	t_float4	a;
+	t_float4	b;
+	t_float4	c;
+	t_float4	d;
 }	t_float4x4;
 
 t_float3 	float3_add(const t_float3 *l, const t_float3 *r);
 t_float3	float3_sub(const t_float3 *l, const t_float3 *r);
-t_float3	float3_rot(const t_float3 *l, const t_float3 *axis, double angle);
 t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r);
+t_float3	float3_rot_x(t_float3 *l, float rad);
+t_float3	float3_rot_y(t_float3 *l, float rad);
+t_float3	float3_rot_z(t_float3 *l, float rad);
 
 t_float4x4	float4x4_id(void);
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r);
 t_float4x4	float4x4_ortho(const t_float4x4 *l, const t_float3 *a, const t_float3 *b);
+//t_float4x4	float4x4_view(const t_float3 *pos, const t_float3 *rot);
 t_float4x4	float4x4_rot(const t_float4x4 *l, const t_float3 *a, double angle);
 
 #endif

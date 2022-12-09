@@ -37,6 +37,7 @@ ft_strnstr.c \
 ft_strrchr.c \
 ft_strtrim.c \
 ft_substr.c \
+ft_toklen.c \
 ft_tolower.c \
 ft_toupper.c \
 ft_lstnew_bonus.c \
@@ -49,7 +50,7 @@ ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
 ft_lstmap_bonus.c \
 \
-ft_vec.c \
+dynarr.c \
 get_next_line.c \
 \
 ft_printf.c \
@@ -62,7 +63,7 @@ OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 DEP := $(OBJ:%.o=.d)
 
 CC := cc
-CFLAGS := -O3 -Wall -Werror -Wextra
+CFLAGS := -O3 -I./ -Wall -Werror -Wextra
 
 all: $(NAME)
 

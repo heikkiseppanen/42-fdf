@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/05 10:59:40 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:31:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ typedef struct s_window
 	int		height;
 	t_framebuf	buf;
 } t_window;
+
+enum e_window_event_type
+{
+	ON_DESTROY = 17
+};
 
 int window_init(t_window *win, int width, int height, char *title);
 void window_destroy(t_window *win);

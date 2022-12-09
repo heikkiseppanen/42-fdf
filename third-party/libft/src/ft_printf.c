@@ -6,24 +6,13 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 09:01:07 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/30 09:49:01 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:50:49 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "libft.h"
 
 #include <stdarg.h>
-#include <unistd.h>
-
-static size_t	ft_toklen(const char *str, char delim)
-{
-	const char	*it;
-
-	it = str;
-	while (*it && *it != delim)
-		it++;
-	return (it - str);
-}
 
 static int	print_arg(va_list *args, char tok)
 {

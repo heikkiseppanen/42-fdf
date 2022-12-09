@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 20:23:12 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:06:53 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	put_pixel(t_framebuf *buf, t_float3 pos, unsigned int color)
 {
 	int	offset;
 
-	if (pos.x < 0 || pos.y < 0 || pos.x >= buf->width || pos.y >= buf->height)
+	if (pos.x < 0 || pos.z < 0 || pos.x >= buf->width || pos.z >= buf->height)
 		return ;
-	offset = (int)pos.x * buf->color_bytes + (int)pos.y * buf->width * buf->color_bytes;
+	offset = (int)pos.x * buf->color_bytes + (int)pos.z * buf->width * buf->color_bytes;
 	if (buf->color_bytes == 4)
 		*(unsigned int*)(buf->data + offset) = color;
 	if (buf->color_bytes == 2)
@@ -46,14 +46,14 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		b = tmp;
 	}
 	a.x = buf->width  / 2 + (a.x * (buf->width / 2)); 
-	a.y = buf->height / 2 + (a.y * (buf->height / 2)); 
+	a.z = buf->height / 2 + (a.z * (buf->height / 2)); 
 	b.x = buf->width  / 2 + (b.x * (buf->width / 2)); 
-	b.y = buf->height / 2 + (b.y * (buf->height / 2)); 
+	b.z = buf->height / 2 + (b.z * (buf->height / 2)); 
 	dif = float3_sub(&b, &a);
 	out.x = a.x;
 	while (out.x <= b.x)
 	{
-		out.y = a.y + dif.y * (out.x - a.x) / dif.x;
+		out.z = a.z + dif.z * (out.x - a.x) / dif.x;
 		put_pixel(buf, out, color);
 		out.x++;
 	}

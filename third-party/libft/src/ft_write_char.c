@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_write_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 11:53:22 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:47:16 by hseppane         ###   ########.fr       */
+/*   Created: 2022/11/26 10:05:22 by hseppane          #+#    #+#             */
+/*   Updated: 2022/11/30 10:10:29 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <ft_printf.h>
 
-int	ft_putptr_fd(int fd, void *ptr)
+#include <unistd.h>
+
+int	ft_write_char_fd(int fd, char c)
 {
-	unsigned long long	addr;
-	int					res_a;
-	int					res_b;
-
-	addr = (unsigned long long)ptr;
-	res_a = ft_write_str_fd(fd, "0x");
-	if (res_a < 0)
-		return (res_a);
-	res_b = ft_puthex_lower_u64_fd(fd, addr);
-	if (res_b < 0)
-		return (res_a);
-	return (res_a + res_b);
+	return (write(fd, &c, 1));
 }
 
-int	ft_putptr(void *ptr)
+int	ft_write_char(char c)
 {
-	return (ft_putptr_fd(STDOUT_FD, ptr));
+	return (ft_write_char_fd(STDOUT_FD, c));
 }

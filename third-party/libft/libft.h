@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:04:10 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/02 21:29:39 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:51:13 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h> // size_t, malloc(), free()
 # include <unistd.h> // write()
+
+# define STDOUT_FD 0
 
 typedef struct s_list
 {
@@ -71,6 +73,8 @@ char	**ft_split(char const *s, char c);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
+size_t	ft_toklen(const char *str, char delim);
+
 // MEMORY
 
 void	*ft_calloc(size_t count, size_t size);
@@ -85,9 +89,28 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 // IO
 
+
+int		ft_printf(const char *str, ...);
+
+int		ft_put_u64_base_fd(int fd, unsigned long long nb, int base, char *set);
+int		ft_put_i64_base_fd(int fd, long long nb, int base, char *set);
+
+int		ft_puthex_upper_u64_fd(int fd, unsigned long long nb);
+int		ft_puthex_upper_u64(unsigned long long nb);
+int		ft_puthex_lower_u64_fd(int fd, unsigned long long nb);
+int		ft_puthex_lower_u64(unsigned long long nb);
+
+int		ft_putdec_u64(unsigned long long nb);
+int		ft_putdec_i64(long long nb);
+
+int		ft_putptr(void *ptr);
+
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *c, int fd);
 void	ft_putendl_fd(char *c, int fd);
 void	ft_putnbr_fd(int n, int fd);
+int		ft_write_str_fd(int fd, const char *str);
+int		ft_write_str(const char *str);
+int		ft_write_char(char c);
 
 #endif

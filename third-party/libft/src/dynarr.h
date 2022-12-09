@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   dynarr.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 11:53:22 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:47:16 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/09 10:15:17 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/09 10:31:14 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#ifndef DYNARR_H
+# define DYNARR_H
 
-int	ft_putptr_fd(int fd, void *ptr)
+# include <stdlib.h>
+# include <unistd.h>
+
+typedef struct s_dynarr
 {
-	unsigned long long	addr;
-	int					res_a;
-	int					res_b;
+	void	*ptr;
+	size_t	type_size;
+	size_t	size;
+	size_t	cap;
+}			t_dynarr;
 
-	addr = (unsigned long long)ptr;
-	res_a = ft_write_str_fd(fd, "0x");
-	if (res_a < 0)
-		return (res_a);
-	res_b = ft_puthex_lower_u64_fd(fd, addr);
-	if (res_b < 0)
-		return (res_a);
-	return (res_a + res_b);
-}
+void	*dynarr_init(t_dynarr *arr, size_t size, size_t type_size);
+void	dynarr_del(t_dynarr *arr);
+void	*dynarr_resize(t_dynarr *arr, size_t new_cap);
+ssize_t	dynarr_read(t_dynarr *arr, int fd, size_t bytes);
 
-int	ft_putptr(void *ptr)
-{
-	return (ft_putptr_fd(STDOUT_FD, ptr));
-}
+#endif

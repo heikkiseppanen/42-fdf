@@ -6,13 +6,11 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 20:17:27 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/30 09:44:07 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:52:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
-
-#include <unistd.h>
+#include "libft.h"
 
 static int	u64_base_digits(unsigned long long nb, int base)
 {

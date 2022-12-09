@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/07 20:11:22 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:30:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 #include "mlx.h"
 
+#include <stdlib.h>
+
 int	app_init(t_app *instance, char *map_path)
 {
 	if (!window_init(&instance->win, 512, 512, "FdF"))
@@ -24,13 +26,16 @@ int	app_init(t_app *instance, char *map_path)
 		return (0);
 	mlx_key_hook(instance->win.mlxwin, key_hook, instance);
 	mlx_loop_hook(instance->win.mlx, app_mlx_loop, instance);
+	mlx_hook(instance->win.mlxwin, ON_DESTROY, 0, app_terminate, instance);
 	return (1);
 }
 
-void	app_terminate(t_app *instance)
+int	app_terminate(t_app *instance)
 {
 	mesh_destroy(&instance->map);
 	window_destroy(&instance->win);
+	exit(0);
+	return (1);
 }
 
 int	app_mlx_loop(void *param)

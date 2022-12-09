@@ -6,11 +6,11 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 10:29:08 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/28 12:01:22 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 10:46:41 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "libft.h"
 
 int	ft_puthex_upper_u64_fd(int fd, unsigned long long nb)
 {
