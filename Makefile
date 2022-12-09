@@ -32,10 +32,16 @@ MLX_LD := -lmlx -framework OpenGL -framework AppKit
 MLX_AR := /usr/local/lib/libmlx.a
 endif
 
+# Libft
+
+FT_DIR := ./third-party/libft
+FT_LD :=
+FT_AR := $(FT_DIR)/libft.a
+
 # Compilation and linking
 
 CC := cc
-INCLUDE := -I$(MLX_DIR) -I$(SRCDIR)
+INCLUDE := -I$(MLX_DIR) -I$(FT_DIR) -I$(SRCDIR)
 CFLAGS := -g -Wall -Werror -Wextra $(INCLUDE)
 LDFLAGS := -lm $(MLX_LD) 
 

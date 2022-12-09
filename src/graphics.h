@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/05 15:22:19 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:22:11 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
 
 typedef struct s_mesh
 {
+	t_dynarr		*vertex_arr;
+	t_dynarr		*index_arr;
+}	t_mesh;
+
+typedef struct s_draw_params
+{
 	t_float3		pos;
 	t_float3		rot;
-	t_float3 		*vert;
-	unsigned int	*idx;
-	unsigned int	vert_count;
-}	t_mesh;
+	unsigned int	color;
+}	t_draw_params;
 
 int		mesh_load(t_mesh *empty, char *filepath);
 void	mesh_destroy(t_mesh *);

@@ -6,12 +6,15 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:04:10 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:51:13 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:18:00 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+#include "include/ft/io.h"
+#include "include/ft/dynarr.h"
 
 # include <stdlib.h> // size_t, malloc(), free()
 # include <unistd.h> // write()
@@ -89,6 +92,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
 // IO
 
+char	*get_next_line(int fd);
 
 int		ft_printf(const char *str, ...);
 

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 09:50:50 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/02 21:33:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:55:25 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,6 @@ static void	*ft_strarr_destroy(char **arr)
 		free(arr);
 	}
 	return (NULL);
-}
-
-static size_t	ft_toklen(const char *str, char delim)
-{
-	const char	*it;
-
-	it = str;
-	while (*it != delim && *it)
-		it++;
-	return (it - str);
 }
 
 void	*ft_tokdup(const char *s, size_t len)

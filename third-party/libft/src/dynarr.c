@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:10:38 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:34:39 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:01:46 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	*dynarr_resize(t_dynarr *arr, size_t new_cap)
 	arr->ptr = tmp;
 	arr->cap = new_cap;
 	return (arr->ptr);
+}
+
+void	*dynarr_push_back(t_dynarr *arr, void *type_data, size_t count)
+{
+	
 }
 
 ssize_t	dynarr_read(t_dynarr *arr, int fd, size_t bytes)

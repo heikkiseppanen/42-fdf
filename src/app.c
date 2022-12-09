@@ -6,15 +6,14 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/08 12:30:44 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:58:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "app.h"
-
 #include "input.h"
 
-#include "mlx.h"
+#include <mlx.h>
 
 #include <stdlib.h>
 
@@ -41,10 +40,8 @@ int	app_terminate(t_app *instance)
 int	app_mlx_loop(void *param)
 {
 	t_app *const	app = param;
-	unsigned int	color;
 
-	color = mlx_get_color_value(app->win.mlx, 0x00FFFFFF);
-	draw_wireframe(&app->win.buf, &app->map, color);
+	draw_wireframe(&app->win.buf, &app->map, 0x00FFFFFF);
 	mlx_put_image_to_window(app->win.mlx, app->win.mlxwin, app->win.mlximg, 0, 0);
 	return (1);
 }
