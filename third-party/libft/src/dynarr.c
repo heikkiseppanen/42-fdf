@@ -6,34 +6,35 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:10:38 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 15:01:46 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:41:02 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dynarr.h"
-
 #include "libft.h"
 
-void	*dynarr_init(t_dynarr *arr, size_t size, size_t type_size)
+int	dynarr_init(t_dynarr *arr, size_t size, size_t type_size)
 {
 	unsigned char	*it;
 
-	if (!arr)
-		return (NULL);
+	if (!arr || !size || !type_size)
+		return (0);
 	if (arr->ptr)
 		dynarr_del(arr);
 	arr->ptr = malloc(size * type_size);
+	arr->size = 0;
 	if (arr->ptr)
 	{
 		arr->type_size = type_size;
 		arr->cap = size;
 		it = (unsigned char *)arr->ptr;
-		ft_bzero(arr->ptr, arr-> size * arr->type_size);
+		ft_bzero(arr->ptr, arr->size * arr->type_size);
 	}
 	else
+	{
 		arr->cap = 0;
-	arr->size = 0;
-	return (arr->ptr);
+		return (0);
+	}
+	return (1);
 }
 
 void	dynarr_del(t_dynarr *arr)
@@ -46,17 +47,17 @@ void	dynarr_del(t_dynarr *arr)
 	arr->cap = 0;
 }
 
-void	*dynarr_resize(t_dynarr *arr, size_t new_cap)
+int	dynarr_resize(t_dynarr *arr, size_t new_cap)
 {
 	unsigned char	*tmp;
 
 	if (!arr || !arr->ptr)
-		return (NULL);
+		return (0);
 	if (new_cap == arr->cap)
-		return (arr->ptr);
+		return (1);
 	tmp = malloc(new_cap * arr->type_size);
 	if (!tmp)
-		return (NULL);
+		return (0);
 	if (new_cap < arr->size)
 	{
 		ft_memcpy(tmp, arr->ptr, new_cap * arr->type_size);
@@ -67,12 +68,22 @@ void	*dynarr_resize(t_dynarr *arr, size_t new_cap)
 	free(arr->ptr);
 	arr->ptr = tmp;
 	arr->cap = new_cap;
-	return (arr->ptr);
+	return (1);
 }
 
-void	*dynarr_push_back(t_dynarr *arr, void *type_data, size_t count)
+int	dynarr_pushback(t_dynarr *arr, void *type_data, size_t count)
 {
-	
+	void *dst;
+
+	while (arr->size + count > arr->cap)
+	{
+		if (!dynarr_resize(arr, 2 * arr->cap))
+			return (0);
+	}
+	dst = (unsigned char *)arr->ptr + (arr->size * arr->type_size);
+	ft_memcpy(dst, type_data, count * arr->type_size);
+	arr->size += count;
+	return (1);
 }
 
 ssize_t	dynarr_read(t_dynarr *arr, int fd, size_t bytes)
@@ -84,7 +95,7 @@ ssize_t	dynarr_read(t_dynarr *arr, int fd, size_t bytes)
 
 	byte_size = arr->size * arr->type_size;
 	byte_cap = arr->cap * arr->type_size;
-	if (byte_size + bytes > byte_cap)
+	while (byte_size + bytes > byte_cap)
 	{
 		if (dynarr_resize(arr, 2 * arr->cap))
 		{

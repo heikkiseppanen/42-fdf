@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 13:56:03 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:05:13 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,40 +59,13 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	draw_wireframe(t_framebuf *out, t_mesh *mesh, unsigned int color)
+int	draw_wireframe(t_framebuf *out, t_mesh *mesh, t_gfx *params)
 {
-	static float angle = 0.0;
-	if (angle < 2 * M_PI)
-		angle += 0.01;
-	else
-		angle = 0.0;
-	unsigned int m = 0;
-	unsigned int n = out->width * out->color_bytes * out->height;
-	while (m < n)
-		out->data[m++] = 0;
-	unsigned int i;
-	unsigned int a;
-	unsigned int b;
-	t_float4x4 trans = float4x4_id();
-	const t_float3 oa = {-2.0, -2.0, 2.0};
-	const t_float3 ob = {2.0, 2.0, -2.0};
-	const t_float3 ax = {0.0, 1.0, 0.0};
+	const t_float3	*vertices;
+	unsigned int	idx;
+	float4x4		matrix;
 
-	trans = float4x4_rot(&trans, &ax, angle);
-	trans = float4x4_ortho(&trans, &oa, &ob);
-	i = 0;
-	while (i < 3)
-	{
-		a = mesh->idx[i++];
-		b = mesh->idx[i];
-		draw_line(out, 
-				float3_transform(&trans, &mesh->vert[a]),
-				float3_transform(&trans, &mesh->vert[b]), color);
-	}
-		a = mesh->idx[i];
-		b = mesh->idx[i - 3];
-		draw_line(out, 
-				float3_transform(&trans, &mesh->vert[a]),
-				float3_transform(&trans, &mesh->vert[b]), color);
+	transform = float4x4_id();
+	transform = float4x4_ortho	
 	return (1);
 }

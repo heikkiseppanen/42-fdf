@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 13:58:04 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:03:54 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,18 @@
 
 #include <stdlib.h>
 
+static void gfx_init(t_gfx *params, *t_window win)
+{
+	params->pos = 0;	
+	params->rot = 0;	
+}
+
 int	app_init(t_app *instance, char *map_path)
 {
+	ft_bzero(instance, sizeof(*instance));
 	if (!window_init(&instance->win, 512, 512, "FdF"))
 		return (0);
-	if (!mesh_load(&instance->map, map_path))
+	if (!mesh_from_map(&instance->map, map_path))
 		return (0);
 	mlx_key_hook(instance->win.mlxwin, key_hook, instance);
 	mlx_loop_hook(instance->win.mlx, app_mlx_loop, instance);

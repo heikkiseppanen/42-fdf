@@ -6,15 +6,14 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:04:10 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 14:18:00 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:49:10 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include "include/ft/io.h"
-#include "include/ft/dynarr.h"
+# include "include/ft/dynarr.h"
 
 # include <stdlib.h> // size_t, malloc(), free()
 # include <unistd.h> // write()

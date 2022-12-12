@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 10:15:17 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 14:58:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:13:26 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct s_dynarr
 	size_t	cap;
 }			t_dynarr;
 
-void	*dynarr_init(t_dynarr *arr, size_t size, size_t type_size);
+int		dynarr_init(t_dynarr *arr, size_t size, size_t type_size);
 void	dynarr_del(t_dynarr *arr);
-void	*dynarr_resize(t_dynarr *arr, size_t new_cap);
-void	*dynarr_push_back(t_dynarr *arr, void *data);
+int		dynarr_resize(t_dynarr *arr, size_t new_cap);
+int		dynarr_pushback(t_dynarr *arr, void *type_data, size_t count);
 ssize_t	dynarr_read(t_dynarr *arr, int fd, size_t bytes);
 
 #endif

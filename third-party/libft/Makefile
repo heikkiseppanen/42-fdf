@@ -57,7 +57,9 @@ ft_printf.c \
 ft_putbase.c \
 ft_puthex.c \
 ft_putdec.c \
-ft_putptr.c
+ft_putptr.c \
+ft_write_str.c \
+ft_write_char.c \
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 DEP := $(OBJ:%.o=.d)

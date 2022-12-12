@@ -6,13 +6,11 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 09:38:25 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:37:15 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:14:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include "dynarr.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 64

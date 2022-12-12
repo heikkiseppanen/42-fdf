@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   int2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/26 09:14:49 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/12 10:48:55 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/12 14:09:47 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/12 14:11:23 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_math"
 
-#include <unistd.h>
-
-int	ft_write_str_fd(int fd, const char *str)
+t_int2	int2_add(t_int2 l, t_int2 r)
 {
-	size_t	len;
+	t_int2 out;
 
-	if (!str)
-		return (ft_write_str_fd(fd, "(null)"));
-	len = ft_strlen(str);
-	return (write(fd, str, len));
+	out.x = l->x + r->x;
+	out.y = l->y + r->y;
+	return (out);
 }
 
-int	ft_write_str(const char *str)
+t_int2| int2_sub(t_int2 l, t_int2 r)
 {
-	return (ft_write_str_fd(STDOUT_FD, str));
+	t_int2 out;
+
+	out.x = l->x - r->x;
+	out.y = l->y - r->y;
+	return (out);
 }
