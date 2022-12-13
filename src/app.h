@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:44:51 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/12 14:00:12 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:04:41 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_app
 {
 	t_window		win;
 	t_mesh			map;
-	t_gfx			gfx;
+	t_draw_params	gfx;
 } t_app;
 
 int	app_init(t_app *instance, char *map_path);

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/12 13:50:32 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:57:03 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 		vert = (t_float3){empty->width, empty->depth, ft_atoi(it)};
 		dynarr_pushback(&empty->vertex_arr, &vert, 1);
 		empty->width++;
-		while (ft_isdigit(*it) || ',')
+		while (ft_isdigit(*it) || *it == ',')
 			it++;
 		while (*it == ' ')
 			it++;
@@ -66,13 +66,13 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 
 static void center_mesh(t_mesh *mesh)
 {
-	const float	offset_x = mesh->height / 2;
+	const float	offset_x = mesh->width / 2;
 	const float	offset_y = mesh->depth / 2;
 	t_float3	*it;
 	t_float3	*end;
 	
-	it = mesh->vertex_array.ptr;
-	end = it + mesh->vertex_array.size;
+	it = mesh->vertex_arr.ptr;
+	end = it + mesh->vertex_arr.size;
 	while (it != end)
 	{
 		it->x -= offset_x;
@@ -97,6 +97,7 @@ int	mesh_from_map(t_mesh *empty, const char *filepath)
 		dynarr_del(&map_data);
 		return (0);
 	}
+	dynarr_del(&map_data);
 	center_mesh(empty);
 	return (1);
 }

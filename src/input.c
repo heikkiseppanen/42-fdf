@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/05 15:27:41 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/13 14:16:59 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "macos/keycodes.h"
 #endif
 
-#include <stdlib.h>
+#include <math.h> // M_PI
 
 int	key_hook(int keycode, void *param)
 {
@@ -30,6 +30,18 @@ int	key_hook(int keycode, void *param)
 	{
 		app_terminate(app);
 		exit(0);
+	}
+	else if (keycode == KEY_LEFT)
+	{
+		if (app->gfx.rotation.z > -2 * M_PI)
+			app->gfx.rotation.z = 0;
+		app->gfx.rotation.z += 0.5;
+	}
+	else if (keycode == KEY_RIGHT)
+	{
+		if (app->gfx.rotation.z < -2 * M_PI)
+			app->gfx.rotation.z = 0;
+		app->gfx.rotation.z -= 0.5;
 	}
 	return (1);
 }

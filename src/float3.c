@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 10:01:33 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:44:03 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,7 @@ t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
 	return (out);
 }
 
-//float	float3_len(t_float3 *vec)
-//{
-//	return (sqrtf(a->x * a->x + a->y * a->y + a->z * a->z));
-//}
-
-//t_float3	float3_perpendicular(t_float3 *a, t_float3 *b)
-//{
-//
-//}
-
-t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r)
+t_float3	float3_transform(const t_float3 *r, const t_float4x4 *l)
 {
 	t_float3	out;
 	float		out_w;
@@ -53,7 +43,7 @@ t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r)
 	out.y = l->b.x * r->x + l->b.y * r->y + l->b.z * r->z + l->b.w;
 	out.z = l->c.x * r->x + l->c.y * r->y + l->c.z * r->z + l->c.w;
 	out_w = l->d.x * r->x + l->d.y * r->y + l->d.z * r->z + l->d.w;
-	if (out_w != 1)
+	if (out_w != 1.0)
 	{
 		out.x /= out_w;
 		out.y /= out_w;

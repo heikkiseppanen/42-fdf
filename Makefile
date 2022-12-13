@@ -10,7 +10,9 @@ main.c \
 app.c \
 int2.c \
 float3.c \
+float3_rotation.c \
 float4x4.c \
+float4x4_transform.c \
 window.c \
 input.c \
 rasterizer.c \
