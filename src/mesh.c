@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/13 14:57:03 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:42:39 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ static t_dynarr	read_map(const char *filepath)
 
 	buf.ptr = NULL;
 	if (!dynarr_init(&buf, MAP_READ_CHUNK_SIZE, sizeof(char)))
+	{
+		close(fd);
 		return (buf);
+	}
 	read_output = 1;
 	while (read_output > 0)
 		read_output = dynarr_read(&buf, fd, MAP_READ_CHUNK_SIZE);
-	dynarr_pushback(&buf, "\0", 1);
+	if (read_output >= 0)
+		dynarr_pushback(&buf, "", 1);
 	close(fd);
 	return (buf);
 }
@@ -46,10 +50,11 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 	empty->depth = 0;
 	while (*it)
 	{
-		vert = (t_float3){empty->width, empty->depth, ft_atoi(it)};
-		dynarr_pushback(&empty->vertex_arr, &vert, 1);
+		vert = (t_float3){empty->width, ft_atoi(it), empty->depth};
+		if (!dynarr_pushback(&empty->vertex_arr, &vert, 1))
+			return (0);
 		empty->width++;
-		while (ft_isdigit(*it) || *it == ',')
+		while (*it && *it != '\n' && *it != ' ')
 			it++;
 		while (*it == ' ')
 			it++;
@@ -60,6 +65,8 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 			it++;
 		}
 	}
+	if (empty->vertex_arr.size % empty->depth != 0)
+		return (0);
 	empty->width = empty->vertex_arr.size / empty->depth;
 	return (1);
 }
@@ -67,7 +74,7 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 static void center_mesh(t_mesh *mesh)
 {
 	const float	offset_x = mesh->width / 2;
-	const float	offset_y = mesh->depth / 2;
+	const float	offset_z = mesh->depth / 2;
 	t_float3	*it;
 	t_float3	*end;
 	
@@ -76,7 +83,7 @@ static void center_mesh(t_mesh *mesh)
 	while (it != end)
 	{
 		it->x -= offset_x;
-		it->y -= offset_y;
+		it->z -= offset_z;
 		it++;
 	}
 }

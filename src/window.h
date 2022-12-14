@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/08 12:31:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 09:45:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ enum e_window_event_type
 
 int window_init(t_window *win, int width, int height, char *title);
 void window_destroy(t_window *win);
+
+void	framebuf_clear(t_framebuf *buf);
 
 #endif

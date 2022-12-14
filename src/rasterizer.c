@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/13 15:01:23 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:10:39 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 		b = tmp;
 	}
 	p1.x = buf->width  / 2 + (a.x * (buf->width / 2)); 
-	p1.y = buf->height / 2 + (a.z * (buf->height / 2)); 
+	p1.y = buf->height / 2 - (a.y * (buf->height / 2)); 
 	p2.x = buf->width  / 2 + (b.x * (buf->width / 2)); 
-	p2.y = buf->height / 2 + (b.z * (buf->height / 2)); 
+	p2.y = buf->height / 2 - (b.y * (buf->height / 2)); 
 	dif = int2_sub(p1, p2);
+	if (!dif.x)
+		return ;
 	out.x = p1.x;
 	while (out.x <= p2.x)
 	{
@@ -61,34 +63,45 @@ void	draw_line(t_framebuf *buf, t_float3 a, t_float3 b, unsigned int color)
 	}
 }
 
-int	draw_wireframe(t_framebuf *out, t_mesh *mesh, t_draw_params *params)
+static t_float4x4	combination_matrix(t_draw_param *param)
 {
-	const t_float3	*vertices = mesh->vertex_arr.ptr;
-	int	x;
-	int	y; 
-	t_float4x4		matrix;
-	t_float3	a;
-	t_float3	b;
+	t_float4x4	model;
+	t_float4x4	combi;
 	
-	matrix = float4x4_id();
-	matrix = float4x4_scale(&matrix, &params->scale);
-	matrix = float4x4_rotate(&matrix, &params->rotation);
-	matrix = float4x4_translate(&matrix, &params->position);
-	matrix = float4x4_mul(&matrix, &params->projection);
-	matrix = float4x4_mul(&matrix, &params->view);
-	x = 0;
-	y = 0;
-	while (y < mesh->depth)
+	model = float4x4_model(&param->pos, &param->rot, &param->scale);
+	combi = float4x4_id();
+	combi = float4x4_mul(&param->project, &param->view);
+	combi = float4x4_mul(&combi, &model);
+
+	return (combi);
+}
+
+int	draw_wireframe(t_framebuf *out, t_mesh *mesh, t_draw_param *param)
+{
+	const t_float3		*vert = mesh->vertex_arr.ptr;
+	const t_float4x4	mat = combination_matrix(param);
+	t_int2				i;
+	unsigned int		offset;
+	t_float3			p[4];
+
+	i = (t_int2){0, 0};
+	while (i.y < mesh->depth - 1)
 	{
-		while (x < mesh->width - 1)
+		while (i.x < mesh->width - 1)
 		{
-			a = float3_transform(&vertices[x + y * mesh->width], &matrix);
-			b = float3_transform(&vertices[x + y * mesh->width + 1], &matrix);
-			draw_line(out, a, b, 0x00FFFFFF);
-			x++;
+			offset = i.x + i.y * mesh->width;
+			p[0] = float3_transform(&mat, &vert[offset]);
+			p[1] = float3_transform(&mat, &vert[offset + 1]);
+			p[2] = float3_transform(&mat, &vert[offset + mesh->width + 1]);
+			p[3] = float3_transform(&mat, &vert[offset + mesh->width]);
+			draw_line(out, p[0], p[1], 0x00FFFFFF);
+			draw_line(out, p[1], p[2], 0x00FFFFFF);
+			draw_line(out, p[2], p[3], 0x00FFFFFF);
+			draw_line(out, p[3], p[0], 0x00FFFFFF);
+			i.x++;
 		}
-		x = 0;
-		y++;
+		i.x = 0;
+		i.y++;
 	}
 	return (1);
 }

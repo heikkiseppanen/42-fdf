@@ -6,13 +6,14 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/04 19:26:35 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 09:47:42 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <window.h>
-#include <input.h>
+#include "window.h"
+#include "input.h"
 
+#include <libft.h> 
 #include <mlx.h>
 
 static int	framebuf_init(t_framebuf *buf, t_window *win)
@@ -47,6 +48,11 @@ int	window_init(t_window *win, int width, int height, char *title)
 	if (!framebuf_init(&win->buf, win))
 		return (0);
 	return (1);
+}
+
+void	framebuf_clear(t_framebuf *buf)
+{
+	ft_bzero(buf->data, buf->width * buf->height * buf->color_bytes);
 }
 
 #ifdef __linux__

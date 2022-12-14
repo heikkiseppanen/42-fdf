@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/13 11:44:03 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:56:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,17 @@ t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
 	return (out);
 }
 
-t_float3	float3_transform(const t_float3 *r, const t_float4x4 *l)
+t_float3	float3_neg(const t_float3 *vec)
+{
+	t_float3 out;
+
+	out.x = -vec->x;
+	out.y = -vec->y;
+	out.z = -vec->z;
+	return (out);
+}
+
+t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r)
 {
 	t_float3	out;
 	float		out_w;
