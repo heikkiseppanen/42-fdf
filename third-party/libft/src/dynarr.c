@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dynarr.c                              :+:      :+:    :+:   */
+/*   dynarr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:10:38 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/12 10:41:02 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/14 09:11:46 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	dynarr_init(t_dynarr *arr, size_t size, size_t type_size)
 {
-	unsigned char	*it;
-
 	if (!arr || !size || !type_size)
 		return (0);
 	if (arr->ptr)
@@ -26,15 +24,12 @@ int	dynarr_init(t_dynarr *arr, size_t size, size_t type_size)
 	{
 		arr->type_size = type_size;
 		arr->cap = size;
-		it = (unsigned char *)arr->ptr;
-		ft_bzero(arr->ptr, arr->size * arr->type_size);
+		ft_bzero(arr->ptr, arr->cap * arr->type_size);
+		return (1);
 	}
-	else
-	{
-		arr->cap = 0;
-		return (0);
-	}
-	return (1);
+	arr->type_size = 0;
+	arr->cap = 0;
+	return (0);
 }
 
 void	dynarr_del(t_dynarr *arr)
