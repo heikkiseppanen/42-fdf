@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 19:12:56 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/15 06:02:00 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ t_float4x4	float4x4_model(t_float3 *pos, t_float3 *rot, t_float3 *scale)
 	return (out);
 }
 
-t_float4x4	float4x4_ortho(const t_float3 *bounds)
+t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 {
-	const t_float3	min = {-bounds->x, -bounds->y, 0.0}; 
-	const t_float3	max = {bounds->x, bounds->y, -bounds->z * 2}; 
+	const t_float3	min = {-size, -size * aspect, zmin}; 
+	const t_float3	max = {size, size * aspect, zmax}; 
 	t_float4x4	proj;
 	
 	proj.a.x = 2 / (max.x - min.x);
@@ -83,10 +83,11 @@ t_float4x4	float4x4_ortho(const t_float3 *bounds)
 
 // Based on OpenGL projection matrix
 
-t_float4x4	float4x4_persp(const t_float3 *bounds)
+t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
 {
-	const t_float3	min = {-bounds->x, -bounds->y, 0.0}; 
-	const t_float3	max = {bounds->x, bounds->y, -bounds->z * 2}; 
+	const float		size = tanf(fov/2) * zmin;
+	const t_float3	min = {-size, -size * aspect, zmin}; 
+	const t_float3	max = {size, size * aspect, zmax}; 
 	t_float4x4	proj;
 	
 	proj.a.x = (2 * min.z) / (max.x - min.x);
@@ -109,11 +110,14 @@ t_float4x4	float4x4_view(const t_float3 *pos, const t_float3 *rot)
 {
 	const t_float4x4 rotation = float4x4_rotation(rot);
 	t_float4x4	out;
+	t_float4x4 translation;
 
-	out.a = (t_float4){1.0, 0.0, 0.0, -pos->x};
-	out.b = (t_float4){0.0, 1.0, 0.0, -pos->y};
-	out.c = (t_float4){0.0, 0.0, -1.0, -pos->z};
-	out.d = (t_float4){0.0, 0.0, 0.0, 1.0};
+	translation.a = (t_float4){1.0, 0.0, 0.0, -pos->x};
+	translation.b = (t_float4){0.0, 1.0, 0.0, -pos->y};
+	translation.c = (t_float4){0.0, 0.0, -1.0, -pos->z};
+	translation.d = (t_float4){0.0, 0.0, 0.0, 1.0};
+	out = float4x4_id();
 	out = float4x4_mul(&out, &rotation);
+	out = float4x4_mul(&out, &translation);
 	return (out);
 }

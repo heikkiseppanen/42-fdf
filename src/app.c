@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 19:16:13 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/15 06:23:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,16 @@
 #include <mlx.h>
 #include <math.h> // for M_PI
 
-static void gfx_init(t_draw_param *param, t_window *win, t_mesh *mesh)
+static void gfx_init(t_draw_param *param, t_framebuf *buf)
 {
-	const	t_float3	view_pos = {0, 0, 0};
-	const	t_float3	view_rot = {M_PI / 4, 0.3, 0.0}; 
-	t_float3	ortho_bounds;
+	const	float	fov = M_PI / 2; 
+	const	t_float3	view_pos = {0, 400, 400};
+	const	t_float3	view_rot = {M_PI / 4, 0.0, 0.0}; 
 
-	ortho_bounds.x = (mesh->width + mesh->depth) / 2;
-	ortho_bounds.y = ortho_bounds.x * (win->height / win->height);
-	ortho_bounds.z = ortho_bounds.x;
 	param->pos= (t_float3){0.0, 0.0, 0.0};
 	param->rot= (t_float3){0.0, 0.0, 0.0};
 	param->scale = (t_float3){1.0, 1.0, 1.0};
-	param->project = float4x4_ortho(&ortho_bounds);
+	param->project = float4x4_persp(fov, buf->height / buf->width, 0.1, 600);
 	param->view = float4x4_view(&view_pos, &view_rot);
 }
 
@@ -44,7 +41,7 @@ int	app_init(t_app *instance, char *map_path)
 	mlx_key_hook(instance->win.mlxwin, key_hook, instance);
 	mlx_loop_hook(instance->win.mlx, app_mlx_loop, instance);
 	mlx_hook(instance->win.mlxwin, ON_DESTROY, 0, app_terminate, instance);
-	gfx_init(&instance->gfx, &instance->win, &instance->map);
+	gfx_init(&instance->gfx, &instance->win.buf);
 	return (1);
 }
 
@@ -61,6 +58,9 @@ int	app_mlx_loop(void *param)
 	t_app *const	app = param;
 
 	framebuf_clear(&app->win.buf);
+	if (app->gfx.rot.y > 2 * M_PI)
+		app->gfx.rot.y = 0;
+	app->gfx.rot.y += 0.001;
 	draw_wireframe(&app->win.buf, &app->map, &app->gfx);
 	mlx_put_image_to_window(app->win.mlx, app->win.mlxwin, app->win.mlximg, 0, 0);
 	return (1);

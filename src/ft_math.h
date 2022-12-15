@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 19:13:35 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/15 05:38:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r);
 
 t_float4x4	float4x4_id(void);
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r);
-t_float4x4	float4x4_ortho(const t_float3 *bounds);
-t_float4x4	float4x4_persp(const t_float3 *bounds);
+t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax);
+t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax);
 t_float4x4	float4x4_view(const t_float3 *pos, const t_float3 *rot);
 t_float4x4	float4x4_model(t_float3 *pos, t_float3 *rot, t_float3 *scale);
 t_float4x4	float4x4_translation(const t_float3 *pos);
