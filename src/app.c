@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/15 06:23:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:26:23 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 static void gfx_init(t_draw_param *param, t_framebuf *buf)
 {
 	const	float	fov = M_PI / 2; 
-	const	t_float3	view_pos = {0, 400, 400};
+	const	t_float3	view_pos = {0, 200, 200};
 	const	t_float3	view_rot = {M_PI / 4, 0.0, 0.0}; 
 
 	param->pos= (t_float3){0.0, 0.0, 0.0};
 	param->rot= (t_float3){0.0, 0.0, 0.0};
-	param->scale = (t_float3){1.0, 1.0, 1.0};
+	param->scale = (t_float3){1.0, 0.1, 1.0};
 	param->project = float4x4_persp(fov, buf->height / buf->width, 0.1, 600);
 	param->view = float4x4_view(&view_pos, &view_rot);
 }

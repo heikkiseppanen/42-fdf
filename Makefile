@@ -15,6 +15,7 @@ float4x4.c \
 float4x4_transform.c \
 window.c \
 input.c \
+draw.c \
 rasterizer.c \
 mesh.c
 

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 15:30:04 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:52:30 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int		mesh_from_map(t_mesh *empty, const char *filepath);
 void	mesh_destroy(t_mesh *);
 
 int		draw_wireframe(t_framebuf *out, t_mesh *mesh, t_draw_param *params);
+void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color);
 
 #endif
