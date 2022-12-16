@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 16:00:48 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:08:57 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,26 @@ int	key_hook(int keycode, void *param)
 			app->gfx.rot.y = 0;
 		app->gfx.rot.y -= rot_speed;
 	}
+	return (1);
+}
+
+int	mousedown_hook(int button, int x, int y, void *param)
+{
+	ft_printf("%i %i %i\n", button, x, y);
+	(void)param;
+	return (1);
+}
+
+int	mouseup_hook(int button, int x, int y, void *param)
+{
+	ft_printf("%i %i %i\n", button, x, y);
+	(void)param;
+	return (1);
+}
+
+int	mousemove_hook(int x, int y, void *param)
+{
+	ft_printf("%i %i\n", x, y);
+	(void)param;
 	return (1);
 }

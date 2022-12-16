@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/15 15:26:23 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/16 14:09:28 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static void gfx_init(t_draw_param *param, t_framebuf *buf)
 {
 	const	float	fov = M_PI / 2; 
-	const	t_float3	view_pos = {0, 200, 200};
+	const	t_float3	view_pos = {0, 20, 20};
 	const	t_float3	view_rot = {M_PI / 4, 0.0, 0.0}; 
 
 	param->pos= (t_float3){0.0, 0.0, 0.0};
@@ -41,6 +41,9 @@ int	app_init(t_app *instance, char *map_path)
 	mlx_key_hook(instance->win.mlxwin, key_hook, instance);
 	mlx_loop_hook(instance->win.mlx, app_mlx_loop, instance);
 	mlx_hook(instance->win.mlxwin, ON_DESTROY, 0, app_terminate, instance);
+	mlx_hook(instance->win.mlxwin, ON_MOUSEDOWN, 0, mousedown_hook, instance);
+	mlx_hook(instance->win.mlxwin, ON_MOUSEUP, 0, mouseup_hook, instance);
+	mlx_hook(instance->win.mlxwin, ON_MOUSEMOVE, 0, mousemove_hook, instance);
 	gfx_init(&instance->gfx, &instance->win.buf);
 	return (1);
 }
@@ -58,10 +61,7 @@ int	app_mlx_loop(void *param)
 	t_app *const	app = param;
 
 	framebuf_clear(&app->win.buf);
-	if (app->gfx.rot.y > 2 * M_PI)
-		app->gfx.rot.y = 0;
-	app->gfx.rot.y += 0.001;
 	draw_wireframe(&app->win.buf, &app->map, &app->gfx);
-	mlx_put_image_to_window(app->win.mlx, app->win.mlxwin, app->win.mlximg, 0, 0);
+	window_swap_buf(&app->win);
 	return (1);
 }
