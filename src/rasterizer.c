@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/15 15:22:01 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/16 11:53:40 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,43 @@ static t_dynarr	to_scr_space(t_dynarr *v, const t_float4x4 *m, t_framebuf *b)
 	return (screen_coords);
 }
 
+static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
+{
+	while (--points)
+	{
+		draw_line(buf, *start, *(start + 1), 0x00FFFFFF);
+	}
+}
+
+static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
+{
+	while (--points)
+	{
+		draw_line(buf, *start, *(start + offset), 0x00FFFFFF);
+		start += offset;
+	}
+}
+
 int	draw_wireframe(t_framebuf *buf, t_mesh *mesh, t_draw_param *param)
 {
-	const t_float4x4	mat = combine_matrices(param);
-	const t_dynarr		scr_coords = to_scr_space(&mesh->vertex_arr, &mat, buf);
-	const t_int2		*coord = scr_coords.ptr;
-	t_int2				i;
-	unsigned int		ci;
+	const t_float4x4 mat = combine_matrices(param);
+	t_dynarr	scr_coords;
+	t_int2		*coord;
+	t_int2		i;
 
+	scr_coords = to_scr_space(&mesh->vertex_arr, &mat, buf);
 	if (!scr_coords.ptr)
 		return (0);
-	i.y = 0;
-	while (i.y < mesh->depth - 1)
+	coord = scr_coords.ptr;
+	i = (t_int2){0, 0};
+	while (i.x < mesh->width)
 	{
-		i.x = 0;
-		while (i.x < mesh->width - 1)
-		{
-			ci = (i.x++) + i.y * mesh->width;
-			draw_line(buf, coord[ci], coord[ci + 1], 0x00FFFFFF);
-			draw_line(buf, coord[ci], coord[ci + mesh->width], 0x00FFFFFF);
-		}
+		draw_col(buf, coord + i.x, mesh->depth, mesh->width);
+		i.x++;
+	}
+	while (i.y < mesh->depth)
+	{
+		draw_row(buf, coord + i.y * mesh->width, mesh->width);
 		i.y++;
 	}
 	dynarr_del((t_dynarr *)&scr_coords);
