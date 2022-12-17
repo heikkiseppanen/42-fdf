@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/16 11:53:40 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/17 11:45:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ static t_float4x4	combine_matrices(t_draw_param *param)
 	return (combi);
 }
 
-static t_dynarr	to_scr_space(t_dynarr *v, const t_float4x4 *m, t_framebuf *b)
+static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 {
-	const t_int2	mid = {b->width / 2, b->height / 2};
+	const t_int2	mid = {buf->width / 2, buf->height / 2};
 	size_t			i;
 	t_float3		clip;
 	t_dynarr		screen_coords;
 	t_int2			screen;
 
 	screen_coords.ptr = NULL;
-	if (!dynarr_init(&screen_coords, v->size, sizeof(t_int2)))
+	if (!dynarr_init(&screen_coords, vert->size, sizeof(t_int2)))
 		return (screen_coords);
 	i = 0;
-	while (i < v->size)
+	while (i < vert->size)
 	{
-		clip = float3_transform(m, (t_float3 *)v->ptr + i);
-		screen.x = (mid.x + (mid.x * (clip.x))) + 0.5; 
-		screen.y = (mid.y - (mid.y * (clip.y))) + 0.5; 
+		clip = float3_transform(mat, (t_float3 *)vert->ptr + i);
+		screen.x = (mid.x + (mid.x * clip.x)) + 0.5; 
+		screen.y = (mid.y - (mid.y * clip.y)) + 0.5; 
 		if (!dynarr_pushback(&screen_coords, &screen, 1))
 			break;
 		i++;
@@ -59,6 +59,7 @@ static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
 	while (--points)
 	{
 		draw_line(buf, *start, *(start + 1), 0x00FFFFFF);
+		start++;
 	}
 }
 
@@ -73,11 +74,12 @@ static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
 
 int	draw_wireframe(t_framebuf *buf, t_mesh *mesh, t_draw_param *param)
 {
-	const t_float4x4 mat = combine_matrices(param);
+	t_float4x4 mat;
 	t_dynarr	scr_coords;
 	t_int2		*coord;
 	t_int2		i;
 
+	mat = combine_matrices(param);
 	scr_coords = to_scr_space(&mesh->vertex_arr, &mat, buf);
 	if (!scr_coords.ptr)
 		return (0);
@@ -90,9 +92,9 @@ int	draw_wireframe(t_framebuf *buf, t_mesh *mesh, t_draw_param *param)
 	}
 	while (i.y < mesh->depth)
 	{
-		draw_row(buf, coord + i.y * mesh->width, mesh->width);
+		draw_row(buf, coord + (i.y * mesh->width), mesh->width);
 		i.y++;
 	}
-	dynarr_del((t_dynarr *)&scr_coords);
+	dynarr_del(&scr_coords);
 	return (1);
 }

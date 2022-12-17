@@ -10,7 +10,7 @@ main.c \
 app.c \
 int2.c \
 float3.c \
-float3_rotation.c \
+float3_transform.c \
 float4x4.c \
 float4x4_transform.c \
 window.c \

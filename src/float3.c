@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/16 11:47:49 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/17 11:19:45 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,29 @@ t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
 	return (out);
 }
 
-t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r)
-{
-	t_float3	out;
-	float		out_w;
-
-	out.x = l->a.x * r->x + l->a.y * r->y + l->a.z * r->z + l->a.w;
-	out.y = l->b.x * r->x + l->b.y * r->y + l->b.z * r->z + l->b.w;
-	out.z = l->c.x * r->x + l->c.y * r->y + l->c.z * r->z + l->c.w;
-	out_w = l->d.x * r->x + l->d.y * r->y + l->d.z * r->z + l->d.w;
-	if (out_w != 1.0)
-	{
-		out.x /= out_w;
-		out.y /= out_w;
-		out.z /= out_w;
-	}
-	return (out);
-}
-
-t_float3	float3_lerp(const t_float3 *l, const t_float3 *r, float t)
+t_float3	float3_cross(const t_float3 *l, const t_float3 *r)
 {
 	t_float3 out;
 
-	out.x = (1 - t) * l->x + t * r->x;
-	out.y = (1 - t) * l->y + t * r->y;
-	out.z = (1 - t) * l->z + t * r->z;
+	out.x = l->y * r->z - l->z * r->y;
+	out.y = l->z * r->x - l->x * r->z;
+	out.z = l->x * r->y - l->y * r->x;
 	return (out);
 }
 
-unsigned int	float3_to_color(const t_float3 *value)
+float	float3_len(const t_float3 *vec)
 {
-	unsigned int rgb;
-	
-	rgb = 0;
-	rgb = ((unsigned char)(value->x * 0xFF) << 16) | 
-		((unsigned char)(value->y * 0xFF) << 8) | 
-		(unsigned char)(value->z * 0xFF);
-	return (rgb);
+	return (sqrtf(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z));
+}
+
+t_float3	float3_normalize(const t_float3 *vec)
+{
+	float		len;
+	t_float3	out;
+
+	len = float3_len(vec);
+	out.x = vec->x / len; 
+	out.y = vec->y / len; 
+	out.z = vec->z / len; 
+	return (out);
 }

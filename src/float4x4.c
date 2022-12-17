@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/15 06:02:00 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/17 11:38:53 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,18 +106,27 @@ t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
 	return (proj);
 }
 
-t_float4x4	float4x4_view(const t_float3 *pos, const t_float3 *rot)
+t_float4x4	float4x4_view(const t_float3 *pos, const t_float3 *target)
 {
-	const t_float4x4 rotation = float4x4_rotation(rot);
-	t_float4x4	out;
-	t_float4x4 translation;
+	t_float4x4	axis;
+	t_float4x4	offset;
+	t_float3	x;
+	t_float3	y;
+	t_float3	z;
 
-	translation.a = (t_float4){1.0, 0.0, 0.0, -pos->x};
-	translation.b = (t_float4){0.0, 1.0, 0.0, -pos->y};
-	translation.c = (t_float4){0.0, 0.0, -1.0, -pos->z};
-	translation.d = (t_float4){0.0, 0.0, 0.0, 1.0};
-	out = float4x4_id();
-	out = float4x4_mul(&out, &rotation);
-	out = float4x4_mul(&out, &translation);
-	return (out);
+	z = float3_sub(pos, target);
+	z = float3_normalize(&z);
+	y = (t_float3){0.0, 1.0, 0.0};
+	x = float3_cross(&y, &z);
+	x = float3_normalize(&x);
+	y = float3_cross(&z, &x);
+	axis.a = (t_float4){x.x, x.y, x.z, 0.0};
+	axis.b = (t_float4){y.x, y.y, y.z, 0.0};
+	axis.c = (t_float4){z.x, z.y, z.z, 0.0};
+	axis.d = (t_float4){0.0, 0.0, 0.0, 1.0};
+	offset.a = (t_float4){1.0, 0.0, 0.0, -pos->x};
+	offset.b = (t_float4){0.0, 1.0, 0.0, -pos->y};
+	offset.c = (t_float4){0.0, 0.0, 1.0, -pos->z};
+	offset.d = (t_float4){0.0, 0.0, 0.0, 1.0};
+	return (float4x4_mul(&axis, &offset));
 }

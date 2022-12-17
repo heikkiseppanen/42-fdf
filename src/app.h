@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:44:51 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 17:17:48 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/17 12:04:36 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 #include "window.h"
 #include "graphics.h"
+#include "input.h"
 
 typedef struct s_app
 {
 	t_window		win;
+	t_input			input;
 	t_mesh			map;
 	t_draw_param	gfx;
 } t_app;

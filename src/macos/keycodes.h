@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:23:20 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/30 14:37:33 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/17 12:06:45 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,15 @@ enum e_key
 	KEY_NUM_DIV = 75,
 	KEY_NUM_DEC = 65,
 	KEY_NUM_EQ = 81
+};
+
+enum	e_mouse_button
+{
+	MOUSE_LEFT = 1,
+	MOUSE_RIGHT = 2,
+	MOUSE_MID = 3,
+	SCROLL_DOWN = 4,
+	SCROLL_UP = 5,
 };
 
 #endif
