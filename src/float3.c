@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 11:19:45 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:17:34 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
 	out.x = l->x - r->x;
 	out.y = l->y - r->y;
 	out.z = l->z - r->z;
+	return (out);
+}
+
+t_float3	float3_scalar(const t_float3 *l, float multiplier)
+{
+	t_float3 out;
+
+	out.x = l->x * multiplier;
+	out.y = l->y * multiplier;
+	out.z = l->z * multiplier;
 	return (out);
 }
 
