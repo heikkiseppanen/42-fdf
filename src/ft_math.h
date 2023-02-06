@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 09:35:53 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:08:15 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,25 @@ typedef struct s_float4x4
 	t_float4	d;
 }	t_float4x4;
 
+typedef struct s_transform
+{
+	t_float3	position;
+	t_float3	rotation;
+	t_float3	scale;
+}	t_transform;
+
 t_int2		int2_add(t_int2 l, t_int2 r);
 t_int2		int2_sub(t_int2 l, t_int2 r);
 
 t_float3	float3_add(const t_float3 *l, const t_float3 *r);
 t_float3	float3_sub(const t_float3 *l, const t_float3 *r);
+t_float3	float3_scalar(const t_float3 *l, float multiplier);
 t_float3	float3_cross(const t_float3 *l, const t_float3 *r);
 t_float3	float3_normalize(const t_float3 *vec);
 t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r);
-//t_float3	float3_rot_x(const t_float3 *l, float rad)
-//t_float3	float3_rot_y(const t_float3 *l, float rad)
-//t_float3	float3_rot_z(const t_float3 *l, float rad)
+t_float3	float3_rot_x(const t_float3 *l, float rad);
+t_float3	float3_rot_y(const t_float3 *l, float rad);
+t_float3	float3_rot_z(const t_float3 *l, float rad);
 
 float		float3_len(const t_float3 *vec);
 

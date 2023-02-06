@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 11:38:53 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:41:28 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 	proj.d = (t_float4){0.0, 0.0, 0.0, 1.0};
 	return (proj);
 }
-
-// Based on OpenGL projection matrix
 
 t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
 {
