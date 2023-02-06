@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 11:45:44 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:31:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include "window.h"
 #include "ft_math.h"
 
-#include <mlx.h>
-#include <math.h> // For M_PI
+#include <mlx.h> #include <math.h> // For M_PI
 
 static t_float4x4	combine_matrices(t_draw_param *param)
 {
@@ -26,7 +25,6 @@ static t_float4x4	combine_matrices(t_draw_param *param)
 	model = float4x4_model(&param->pos, &param->rot, &param->scale);
 	combi = float4x4_mul(&param->project, &param->view);
 	combi = float4x4_mul(&combi, &model);
-
 	return (combi);
 }
 
@@ -72,13 +70,14 @@ static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
 	}
 }
 
-int	draw_wireframe(t_framebuf *buf, t_mesh *mesh, t_draw_param *param)
+int	render_scene(t_framebuf *buf, t_mesh *mesh, t_draw_param *param)
 {
-	t_float4x4 mat;
+	t_float4x4	mat;
 	t_dynarr	scr_coords;
 	t_int2		*coord;
 	t_int2		i;
 
+	framebuf_clear(buf);
 	mat = combine_matrices(param);
 	scr_coords = to_scr_space(&mesh->vertex_arr, &mat, buf);
 	if (!scr_coords.ptr)

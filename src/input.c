@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 14:50:19 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:32:17 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,56 +20,61 @@
 
 #include <math.h> // M_PI
 
-int	key_hook(int keycode, void *param)
+static int	keydown_hook(int keycode, void *input_state)
 {
-	t_app *const	app = param;
+	t_input *const	input = input_state;
 
 	if (keycode == KEY_ESCAPE)
-	{
-		app_terminate(app);
-		exit(0);
-	}
+		input->exit = 1;
 	return (1);
 }
 
-int	mousedown_hook(int button, int x, int y, void *param)
+static int	mousedown_hook(int button, int x, int y, void *input_state)
 {
-	t_app *const	app = param;
+	t_input *const	input = input_state;
 
 	(void)x;
 	(void)y;
 	if (button == MOUSE_LEFT) 
-		app->input.movekey = 1;
+		input->move = 1;
 	else if (button == MOUSE_RIGHT) 
-		app->input.rotkey = 1;
+		input->rotate = 1;
 	return (1);
 }
 
-int	mouseup_hook(int button, int x, int y, void *param)
+static int	mouseup_hook(int button, int x, int y, void *input_state)
 {
-	t_app *const	app = param;
+	t_input *const	input = input_state;
 
 	(void)x;
 	(void)y;
 	if (button == MOUSE_LEFT) 
-		app->input.movekey = 0;
+		input->move= 0;
 	else if (button == MOUSE_RIGHT) 
-		app->input.rotkey = 0;
+		input->rotate= 0;
 	return (1);
 }
 
-int	mousemove_hook(int x, int y, void *param)
+static int	mousemove_hook(int x, int y, void *input_state)
 {
-	t_app *const	app = param;
-	const t_int2	newpos = {x, y};
+	t_input *const	input = input_state;
+	const t_int2	new_pos = {x, y};
 
-	app->input.mouse_movement = int2_sub(app->input.mouse_position, newpos);
-	app->input.mouse_position = newpos;
-	if (app->input.rotkey)
-	{
-		app->gfx.rot.y += app->input.mouse_movement.x * app->input.mouse_sens;
-		if (app->gfx.rot.y > M_PI * 2 || app->gfx.rot.y < -M_PI * 2)
-			app->gfx.rot.y = 0;
-	}
+	input->mouse_movement = int2_sub(input->mouse_position, new_pos);
+	input->mouse_position = new_pos;
 	return (1);
+}
+
+void input_init(t_input *empty, void *mlx_window)
+{
+	empty->move = 0;
+	empty->rotate = 0;
+	empty->zoom_in = 0;
+	empty->zoom_out = 0;
+	empty->scroll_sens = 1.0;
+	empty->mouse_sens = 1.0;
+	mlx_hook(mlx_window, ON_KEYDOWN, 0, keydown_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEDOWN, 0, mousedown_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEUP, 0, mouseup_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEMOVE, 0, mousemove_hook, empty);
 }

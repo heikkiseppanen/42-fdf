@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.h                                            :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
+/*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 14:27:01 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 13:28:28 by hseppane         ###   ########.fr       */
+/*   Created: 2023/02/06 15:03:07 by hseppane          #+#    #+#             */
+/*   Updated: 2023/02/06 15:31:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_H
-# define INPUT_H
+#include "graphics.h"
 
 #include "ft_math.h"
 
-typedef struct s_input
+static t_float4x4	calculate_matrix(
+int	render_update(const t_scene *scene, t_framebuf *target_buffer)
 {
-	char	exit;
-	char	move;
-	char	rotate;
-	char	zoom_in;
-	char	zoom_out;
-	float	scroll_sens;
-	float	mouse_sens;
-	t_int2	mouse_position;
-	t_int2	mouse_movement;
-}	t_input;
-
-void input_init(t_input *empty);
-
-#endif
+	const t_float4x4	matrix;
+	const t_dynarr		vertices;
+		
+	matrix = float4x4;
+	matrix = float4x4_mul(floa);
+}

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 10:20:04 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:42:50 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static t_dynarr	read_map(const char *filepath)
 
 static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 {
-	t_float3	vert;
 	const char	*it = map_data->ptr;
+	t_float3	vert;
 
 	empty->width = 0;
 	empty->depth = 0;
@@ -98,7 +98,8 @@ int	mesh_from_map(t_mesh *empty, const char *filepath)
 		dynarr_del(&map_data);
 		return (0);
 	}
-	dynarr_init(&empty->vertex_arr, MIN_VERTS * 3, sizeof(t_float3));
+	dynarr_init(&empty->vertex_arr, MIN_VERTS, sizeof(t_float3));
+	dynarr_init(&empty->color_arr, MIN_VERTS, sizeof(unsigned int));
 	if (!parse_map(empty, &map_data))
 	{
 		dynarr_del(&map_data);
@@ -112,4 +113,5 @@ int	mesh_from_map(t_mesh *empty, const char *filepath)
 void	mesh_destroy(t_mesh *mesh)
 {
 	dynarr_del(&mesh->vertex_arr);
+	dynarr_del(&mesh->color_arr);
 }

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/16 10:36:32 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:51:03 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ static int	framebuf_init(t_framebuf *buf, t_window *win)
 	return (1);
 }
 
-void	framebuf_clear(t_framebuf *buf)
-{
-	ft_bzero(buf->data, buf->width * buf->height * buf->color_bytes);
-}
-
 int	window_init(t_window *win, int width, int height, char *title)
 {
 	win->width = width;
@@ -55,12 +50,17 @@ int	window_init(t_window *win, int width, int height, char *title)
 	return (1);
 }
 
+void	framebuf_clear(t_framebuf *buf)
+{
+	ft_bzero(buf->data, buf->width * buf->height * buf->color_bytes);
+}
+
 void	window_swap_buf(t_window *win)
 {
 	mlx_put_image_to_window(win->mlx, win->mlxwin, win->mlximg, 0, 0);
 }
 
-void	window_destroy(t_window *win)
+void	window_del(t_window *win)
 {
 	mlx_destroy_image(win->mlx, win->mlximg);
 	mlx_destroy_window(win->mlx, win->mlxwin);

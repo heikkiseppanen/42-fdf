@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/16 14:12:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:50:52 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ typedef struct s_window
 
 enum e_window_event_type
 {
-	ON_DESTROY = 17,
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
 	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6
+	ON_MOUSEMOVE = 6,
+	ON_DESTROY = 17
 };
 
 int		window_init(t_window *win, int width, int height, char *title);
-void	window_destroy(t_window *win);
+void	window_del(t_window *win);
 
 void	window_swap_buf(t_window *win);
 

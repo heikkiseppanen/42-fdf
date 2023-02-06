@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 18:43:24 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:52:39 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ int main(int argc, char **argv)
 	}
 	if (!app_init(&fdf, argv[1]))
 	{
-		app_terminate(&fdf);
-		return (1);
+		app_terminate(&fdf, 1);
 	}
-	mlx_loop(fdf.win.mlx);
+	mlx_loop(fdf.window.mlx);
 	return (1);
 }
