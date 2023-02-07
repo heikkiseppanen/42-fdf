@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_toklen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/09 10:39:33 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/09 13:55:37 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+size_t	ft_toklen(const char *str, char delim)
 {
-	if (!f)
-		return ;
-	while (lst)
-	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
-	}
+	const char	*it;
+
+	it = str;
+	while (*it && *it != delim)
+		it++;
+	return (it - str);
 }

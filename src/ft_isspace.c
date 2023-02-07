@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2023/01/30 17:56:37 by hseppane          #+#    #+#             */
+/*   Updated: 2023/01/30 17:57:09 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_isspace(int c)
 {
-	if (!f)
-		return ;
-	while (lst)
-	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
-	}
+	return (c == ' ' || (c >= 9 && c <= 13));
 }

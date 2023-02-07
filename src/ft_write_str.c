@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2022/11/26 09:14:49 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/12 10:48:55 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+#include <unistd.h>
+
+int	ft_write_str_fd(int fd, const char *str)
 {
-	if (!f)
-		return ;
-	while (lst)
-	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
-	}
+	size_t	len;
+
+	if (!str)
+		return (ft_write_str_fd(fd, "(null)"));
+	len = ft_strlen(str);
+	return (write(fd, str, len));
+}
+
+int	ft_write_str(const char *str)
+{
+	return (ft_write_str_fd(STDOUT_FD, str));
 }

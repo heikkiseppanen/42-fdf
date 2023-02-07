@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_write_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2022/11/26 10:05:22 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/12 10:49:46 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+#include <unistd.h>
+
+int	ft_write_char_fd(int fd, char c)
 {
-	if (!f)
-		return ;
-	while (lst)
-	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
-	}
+	return (write(fd, &c, 1));
+}
+
+int	ft_write_char(char c)
+{
+	return (ft_write_char_fd(STDOUT_FD, c));
 }

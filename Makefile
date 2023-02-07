@@ -13,6 +13,7 @@ ft_isalpha.c \
 ft_isascii.c \
 ft_isdigit.c \
 ft_isprint.c \
+ft_isspace.c \
 ft_itoa.c \
 ft_memchr.c \
 ft_memcmp.c \
@@ -28,15 +29,19 @@ ft_striteri.c \
 ft_strmapi.c \
 ft_strchr.c \
 ft_strdup.c \
+ft_strndup.c \
 ft_strjoin.c \
 ft_strlcat.c \
 ft_strlcpy.c \
 ft_strlen.c \
 ft_strncmp.c \
+ft_strflds.c \
 ft_strnstr.c \
 ft_strrchr.c \
+ft_strarr_del.c\
 ft_strtrim.c \
 ft_substr.c \
+ft_toklen.c \
 ft_tolower.c \
 ft_toupper.c \
 ft_lstnew_bonus.c \
@@ -49,20 +54,22 @@ ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
 ft_lstmap_bonus.c \
 \
-ft_vec.c \
+dynarr.c \
 get_next_line.c \
 \
 ft_printf.c \
 ft_putbase.c \
 ft_puthex.c \
 ft_putdec.c \
-ft_putptr.c
+ft_putptr.c \
+ft_write_str.c \
+ft_write_char.c \
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 DEP := $(OBJ:%.o=.d)
 
 CC := cc
-CFLAGS := -O3 -Wall -Werror -Wextra
+CFLAGS := -O3 -I./ -Wall -Werror -Wextra
 
 all: $(NAME)
 

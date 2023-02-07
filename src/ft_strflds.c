@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_strflds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/20 10:25:14 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/20 10:25:40 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_strflds(char const *str, const char delim)
 {
-	if (!f)
-		return ;
-	while (lst)
+	int	fields;
+
+	fields = 0;
+	while (*str)
 	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
+		while (*str == delim)
+			str++;
+		if (*str)
+		{
+			fields++;
+			while (*str != delim && *str)
+				str++;
+		}
 	}
+	return (fields);
 }
