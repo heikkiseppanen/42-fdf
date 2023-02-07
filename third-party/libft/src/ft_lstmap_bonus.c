@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:14:19 by hseppane          #+#    #+#             */
-/*   Updated: 2022/11/02 21:33:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/20 10:41:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list *new;
-	t_list *it;
+	t_list	*new;
+	t_list	*it;
 
 	if (!f || !del || !lst)
 		return (NULL);

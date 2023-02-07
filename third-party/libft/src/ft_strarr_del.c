@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_strarr_del.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 15:06:41 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/20 10:40:38 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/20 09:48:52 by hseppane          #+#    #+#             */
+/*   Updated: 2022/12/20 10:53:12 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	*ft_strarr_del(char **arr)
 {
-	if (!f)
-		return ;
-	while (lst)
+	char	**it;
+
+	if (!arr)
+		return (NULL);
+	it = arr;
+	while (*it)
 	{
-		if (lst->content)
-			f(lst->content);
-		lst = lst->next;
+		free(*it++);
 	}
+	free(arr);
+	return (NULL);
 }

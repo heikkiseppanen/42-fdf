@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:04:10 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/12 10:49:10 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:05:42 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h> // size_t, malloc(), free()
 # include <unistd.h> // write()
 
-# define STDOUT_FD 0
+# define STDOUT_FD 1
 
 typedef struct s_list
 {
@@ -47,6 +47,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
@@ -58,10 +59,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 
 char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *str, int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
+int		ft_strflds(char const *str, const char delim);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 
@@ -73,6 +76,8 @@ char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+void	*ft_strarr_del(char **arr);
+
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 size_t	ft_toklen(const char *str, char delim);

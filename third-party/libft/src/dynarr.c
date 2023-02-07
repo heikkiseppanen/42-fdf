@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 10:10:38 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 09:11:46 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/20 10:34:24 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	dynarr_resize(t_dynarr *arr, size_t new_cap)
 
 int	dynarr_pushback(t_dynarr *arr, void *type_data, size_t count)
 {
-	void *dst;
+	void	*dst;
 
 	while (arr->size + count > arr->cap)
 	{

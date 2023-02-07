@@ -6,66 +6,18 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 09:50:50 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/09 13:55:25 by hseppane         ###   ########.fr       */
+/*   Updated: 2022/12/20 10:25:41 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strflds(char const *str, const char delim)
-{
-	int	fields;
-
-	fields = 0;
-	while (*str)
-	{
-		while (*str == delim)
-			str++;
-		if (*str)
-		{
-			fields++;
-			while (*str != delim && *str)
-				str++;
-		}
-	}
-	return (fields);
-}
-
-static void	*ft_strarr_destroy(char **arr)
-{
-	char	**it;
-
-	it = arr;
-	if (arr)
-	{
-		while (*it)
-		{
-			free(*it);
-			it++;
-		}
-		free(arr);
-	}
-	return (NULL);
-}
-
-void	*ft_tokdup(const char *s, size_t len)
-{
-	char	*tok;
-
-	tok = malloc((len + 1) * sizeof(*tok));
-	if (!tok)
-		return (NULL);
-	ft_memcpy(tok, s, len);
-	tok[len] = '\0';
-	return (tok);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char	**arr;
-	size_t	i;
 	size_t	arr_size;
 	size_t	tok_len;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
@@ -80,9 +32,9 @@ char	**ft_split(char const *s, char c)
 		while (*s == c)
 			s++;
 		tok_len = ft_toklen(s, c);
-		arr[i] = ft_tokdup(s, tok_len);
+		arr[i] = ft_strndup(s, tok_len);
 		if (!arr[i])
-			return (ft_strarr_destroy(arr));
+			return (ft_strarr_del(arr));
 		s += tok_len;
 		i++;
 	}
