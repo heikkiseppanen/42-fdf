@@ -6,12 +6,11 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 09:55:11 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:19:09 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
-#include "ft_math.h"
+#include "rendering.h"
 
 static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 {
@@ -30,29 +29,29 @@ static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 
 void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
 {
-	t_int2 dif;
-	t_int2 s;
-	int		err;
-	int		e2;
+	t_int2	delta;
+	t_int2	direction;
+	int		error;
+	int		err2;
 	
-	dif.x = abs(b.x - a.x); 
-	dif.y = -abs(b.y - a.y);
-	s.x = -1 + (2 * (a.x < b.x));
-	s.y = -1 + (2 * (a.y < b.y));
-	err = dif.x + dif.y;
+	delta.x = abs(b.x - a.x); // REWRITE ABS
+	delta.y = -abs(b.y - a.y);
+	direction.x = -1 + (2 * (a.x < b.x));
+	direction.y = -1 + (2 * (a.y < b.y));
+	error = delta.x + delta.y;
 	while (a.x != b.x || a.y != b.y)
 	{
 		put_pixel(buf, a, color);
-		e2 = 2 * err;
-		if (e2 >= dif.y)
+		err2 = 2 * error;
+		if (err2 >= direction.y)
 		{
-			err += dif.y;
-			a.x += s.x;
+			error += direction.y;
+			a.x += direction.x;
 		}
-		if (e2 <= dif.x)
+		if (err2 <= direction.x)
 		{
-			err += dif.x;
-			a.y += s.y;
+			error += direction.x;
+			a.y += direction.y;
 		}
 	}
 }

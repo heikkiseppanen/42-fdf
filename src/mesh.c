@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/01/23 15:42:50 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/10 10:50:22 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	mesh_from_map(t_mesh *empty, const char *filepath)
 		return (0);
 	}
 	dynarr_init(&empty->vertex_arr, MIN_VERTS, sizeof(t_float3));
-	dynarr_init(&empty->color_arr, MIN_VERTS, sizeof(unsigned int));
+	//dynarr_init(&empty->color_arr, MIN_VERTS, sizeof(unsigned int));
 	if (!parse_map(empty, &map_data))
 	{
 		dynarr_del(&map_data);

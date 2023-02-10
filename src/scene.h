@@ -6,15 +6,17 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:14:20 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 14:56:07 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:04:33 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "graphics.h"
 # include "camera.h"
+# include "input.h"
+# include "mesh.h"
+# include "ft_math.h"
 	
 typedef struct s_scene
 {

@@ -6,14 +6,16 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:01 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 13:28:28 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/09 10:45:00 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_H
 # define INPUT_H
 
-#include "ft_math.h"
+# include "ft_math.h"
+
+# include <mlx.h>
 
 typedef struct s_input
 {
@@ -28,6 +30,6 @@ typedef struct s_input
 	t_int2	mouse_movement;
 }	t_input;
 
-void input_init(t_input *empty);
+void input_init(t_input *empty, void *mlx_window);
 
 #endif

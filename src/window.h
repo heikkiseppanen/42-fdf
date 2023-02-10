@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 14:50:52 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:27:21 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ typedef struct s_framebuf
 
 typedef struct s_window
 {
-	void	*mlx;
-	void	*mlxwin;
-	void	*mlximg;
-	int		width;
-	int		height;
-	t_framebuf	buf;
+	void		*mlx_handle;
+	void		*mlx_window;
+	void		*mlx_image;
+	int			width;
+	int			height;
+	t_framebuf	framebuffer;
 } t_window;
 
 enum e_window_event_type

@@ -6,16 +6,16 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 15:31:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:07:32 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#include "rendering.h"
 
 #include "window.h"
 #include "ft_math.h"
 
-#include <mlx.h> #include <math.h> // For M_PI
+#include <mlx.h> // For M_PI
 
 static t_float4x4	combine_matrices(t_draw_param *param)
 {

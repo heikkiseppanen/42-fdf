@@ -6,11 +6,11 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 14:52:39 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:18:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <app.h>
+#include "app.h"
 
 #include <mlx.h>
 
@@ -29,6 +29,6 @@ int main(int argc, char **argv)
 	{
 		app_terminate(&fdf, 1);
 	}
-	mlx_loop(fdf.window.mlx);
+	mlx_loop(fdf.window.mlx_handle);
 	return (1);
 }

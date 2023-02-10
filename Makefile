@@ -8,6 +8,8 @@ OBJDIR := ./obj
 SRC :=\
 main.c \
 app.c \
+camera.c \
+scene.c \
 int2.c \
 float3.c \
 float3_transform.c \
@@ -54,6 +56,7 @@ LDFLAGS := -lm $(MLX_LD) $(FT_LD)
 all: $(NAME)
 
 $(NAME): $(MLX_AR) $(FT_AR) $(OBJ)
+	sed -e '1s/^/[\'$'\n''/' -e '$s/,$/\'$'\n'']/' $(OBJDIR)/*.o.json > compile_commands.json
 	$(CC) -fsanitize=address  -o $(NAME) $(OBJ) $(LDFLAGS)
 
 $(MLX_AR):
@@ -67,7 +70,7 @@ $(FT_AR):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c  
 	@$(shell [ ! -d $(@D) ] && mkdir -p $(@D))
-	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
+	$(CC) $(CFLAGS) -MJ $@.json -MMD -c $< -o $@ 
 
 clean:
 	/bin/rm -rf $(OBJDIR)

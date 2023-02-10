@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 12:07:10 by hseppane         ###   ########.fr       */
+/*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
+/*   Updated: 2023/02/09 10:14:15 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
+#ifndef GRAPHICS_H
+# define GRAPHICS_H
 
-void	cam_init(t_cam *empty, float fov, int is_ortho)
+#include "libft.h"
+
+typedef struct s_mesh
 {
-	empty->fov = fov;
-	empty->orthographic = is_ortho;
-	empty->clip_near = 0.1;
-	empty->clip_far = 100;
-	empty->x_axis = (t_float3){1.0, 0.0, 0.0};
-	empty->y_axis = (t_float3){0.0, 1.0, 0.0};
-	empty->z_axis = (t_float3){0.0, 0.0, -1.0};
-}
+	t_dynarr	vertex_arr;
+	//t_dynarr	color_arr;
+	float		width;
+	float		height;
+	float		depth;
+}	t_mesh;
+
+int		mesh_from_map(t_mesh *empty, const char *filepath);
+void	mesh_del(t_mesh *mesh);
+
+#endif

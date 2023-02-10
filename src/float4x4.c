@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/06 11:28:48 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:30:54 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ t_float4x4	float4x4_model(t_float3 *pos, t_float3 *rot, t_float3 *scale)
 
 t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 {
-	const t_float3	min = {-size, -size * aspect, zmin}; 
-	const t_float3	max = {size, size * aspect, zmax}; 
+	const t_float3	min = {-size * aspect, -size, zmin}; 
+	const t_float3	max = {size * aspect, size, zmax}; 
 	t_float4x4	proj;
 	
 	proj.a.x = 2 / (max.x - min.x);
@@ -84,8 +84,8 @@ t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
 {
 	const float		size = tanf(fov/2) * zmin;
-	const t_float3	min = {-size, -size * aspect, zmin}; 
-	const t_float3	max = {size, size * aspect, zmax}; 
+	const t_float3	min = {-size * aspect, -size, zmin}; 
+	const t_float3	max = {size * aspect, size, zmax}; 
 	t_float4x4	proj;
 	
 	proj.a.x = (2 * min.z) / (max.x - min.x);
