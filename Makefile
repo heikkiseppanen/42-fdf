@@ -70,7 +70,7 @@ $(FT_AR):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c  
 	@$(shell [ ! -d $(@D) ] && mkdir -p $(@D))
-	$(CC) $(CFLAGS) -MJ $@.json -MMD -c $< -o $@ 
+	$(CC) $(CFLAGS) -MMD -c $< -o $@ 
 
 clean:
 	/bin/rm -rf $(OBJDIR)

@@ -6,39 +6,45 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:03:07 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/10 12:15:06 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:00:10 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#include "rendering.h"
 
+#include "window.h"
 #include "scene.h"
 #include "ft_math.h"
 
+#include <libft.h>
 #include <math.h>
 
-static t_float4x4	get_proj_mat(const t_cam *view, const t_framebuf *buffer)
+static t_float4x4	calc_projection(const t_cam *view, const t_framebuf *buffer)
 {
-	const float aspect_ratio = (float)buffer->width / (float)buffer->width;
-	const float	clip_min = 0.1;
-	const float	clip_max = 500;
-	const float	ortho_size = tanf(fov / 2) * clip_max;
+	const float aspect_ratio = (float)buffer->width / (float)buffer->height;
+	const float	ortho_fov = tanf(view->fov / 2) * view->far;
+	//const float	ortho_fov = tanf(view->fov / 2) * view->far;
 
-	if (scene_view->is_ortho)
-		return (float4x4_ortho(ortho_size, aspect_ratio, clip_min, clip_max));
+	if (view->orthographic)
+	{
+		return (float4x4_ortho(ortho_fov, aspect_ratio, view->near, view->far));
+	}
 	else
-		return (float4x4_persp(fov, aspect_ratio, clip_min, clip_max));
+	{
+		return (float4x4_persp(view->fov, aspect_ratio, view->near, view->far));
+	}
 }
 
-static t_float4x4	get_view_matrix(const t_cam *scene_view)
+static t_float4x4	calc_view(const t_cam *scene_view)
 {
 	
 }
 
-int	render_update(const t_scene *scene, t_framebuf *target_buffer)
+int	render_scene(const t_scene *scene, t_framebuf *target_buffer)
 {
-	const t_float4x4	matrix;
-	const t_dynarr		vertices;
+	t_float4x4	matrix;
 
+	framebuf_clear(target_buffer);
 	matrix = float4x4_mul();
+	dynarr_del(&vertices);
 }

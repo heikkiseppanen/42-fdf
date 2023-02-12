@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:17:42 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 11:40:32 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:04:54 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_cam
 {
 	float		fov;
 	int			orthographic;
-	float		clip_near;
-	float		clip_far;
+	float		near;
+	float		far;
 	t_float3	target;
 	t_float3	x_axis;
 	t_float3	y_axis;
