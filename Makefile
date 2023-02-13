@@ -56,8 +56,7 @@ LDFLAGS := -lm $(MLX_LD) $(FT_LD)
 all: $(NAME)
 
 $(NAME): $(MLX_AR) $(FT_AR) $(OBJ)
-	sed -e '1s/^/[\'$'\n''/' -e '$s/,$/\'$'\n'']/' $(OBJDIR)/*.o.json > compile_commands.json
-	$(CC) -fsanitize=address  -o $(NAME) $(OBJ) $(LDFLAGS)
+	$(CC) -fsanitize=address -o $(NAME) $(OBJ) $(LDFLAGS)
 
 $(MLX_AR):
 	$(MAKE) -C $(MLX_DIR)
