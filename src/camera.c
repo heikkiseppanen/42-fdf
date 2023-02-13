@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/11 17:13:17 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:55:24 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,18 @@ void	cam_init(t_cam *empty, float fov, int is_ortho)
 	empty->orthographic = is_ortho;
 	empty->near = 0.1;
 	empty->far = 100;
-	empty->target = (t_float3){0.0, 0.0, 0.0};
-	empty->x_axis = (t_float3){1.0, 0.0, 0.0};
-	empty->y_axis = (t_float3){0.0, 1.0, 0.0};
-	empty->z_axis = (t_float3){0.0, 0.0, -1.0};
+	empty->view_matrix = float4x4_id();
+	empty->view_matrix.c.z = -1.0;
+}
+
+void	cam_calc_view(t_cam *camera, const t_transform *transform)
+{
+	t_float3	target;
+	t_float4x4	rotation_matrix;
+
+	target = (t_float3){ 0.0f, 0.0f, -1.0f };
+	rotation_matrix = float4x4_rotation(&transform->rotation); 
+	target = float3_transform(&rotation_matrix, &target);
+	target = float3_add(&transform->position, &target);
+	camera->view_matrix = float4x4_view(&transform->position, &target);
 }

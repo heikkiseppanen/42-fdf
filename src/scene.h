@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:14:20 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/10 12:04:33 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:48:26 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_scene
 {
 	t_cam		camera;
 	t_mesh		mesh;
-	t_transform	cam_transform;
+	t_transform	camera_transform;
 	t_transform	mesh_transform;
 }	t_scene;
 
