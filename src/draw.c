@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 19:06:36 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 20:17:30 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,28 @@ static int	ft_abs(int i)
 
 // Bresenham line algorithm variation that tracks
 
-void	draw_line(t_framebuf *buf, t_int3 a, t_int3 b, unsigned int color)
+void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
 {
-	t_int2	delta;
-	t_int2	direction;
+	const t_int2 delta = {ft_abs(b.x - a.x), -ft_abs(b.y - a.y)};
+	const t_int2 direction = {-1 + (2 * (a.x < b.x)), -1 + (2 * (a.y < b.y))};
 	int		error;
 	int		err2;
 	
-	delta.x = ft_abs(b.x - a.x);
-	delta.y = -ft_abs(b.y - a.y);
-	direction.x = -1 + (2 * (a.x < b.x));
-	direction.y = -1 + (2 * (a.y < b.y));
 	error = delta.x + delta.y;
 	while (a.x != b.x || a.y != b.y)
 	{
 		put_pixel(buf, a, color);
 		err2 = 2 * error;
-		if (err2 >= direction.y)
+		if (err2 >= delta.y)
 		{
-			error += direction.y;
+			error += delta.y;
 			a.x += direction.x;
 		}
-		if (err2 <= direction.x)
+		if (err2 <= delta.x)
 		{
-			error += direction.x;
+			error += delta.x;
 			a.y += direction.y;
 		}
 	}
+	put_pixel(buf, a, color);
 }
