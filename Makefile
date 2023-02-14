@@ -11,6 +11,7 @@ app.c \
 camera.c \
 scene.c \
 int2.c \
+int3.c \
 float3.c \
 float3_transform.c \
 float4x4.c \

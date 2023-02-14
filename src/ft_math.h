@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 10:10:01 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:54:28 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,23 @@ typedef struct s_transform
 	t_float3	scale;
 }	t_transform;
 
-typedef struct s_space
-{
-	t_float3	x_axis;
-	t_float3	y_axis;
-	t_float3	z_axis;
-}	t_space;
+t_int2		int2_add(t_int3 l, t_int3 r);
+t_int2		int2_sub(t_int3 l, t_int3 r);
 
-t_int2		int2_add(t_int2 l, t_int2 r);
-t_int2		int2_sub(t_int2 l, t_int2 r);
+t_int3		int3_add(t_int3 l, t_int3 r);
+t_int3		int3_sub(t_int3 l, t_int3 r);
 
-t_float3	float3_add(const t_float3 *l, const t_float3 *r);
-t_float3	float3_sub(const t_float3 *l, const t_float3 *r);
-t_float3	float3_scalar(const t_float3 *l, float multiplier);
-t_float3	float3_cross(const t_float3 *l, const t_float3 *r);
-t_float3	float3_normalize(const t_float3 *vec);
-t_float3	float3_transform(const t_float4x4 *l, const t_float3 *r);
-t_float3	float3_rot_x(const t_float3 *l, float rad);
-t_float3	float3_rot_y(const t_float3 *l, float rad);
-t_float3	float3_rot_z(const t_float3 *l, float rad);
+t_float3	float3_add(t_float3 l, t_float3 r);
+t_float3	float3_sub(t_float3 l, t_float3 r);
+t_float3	float3_scalar(t_float3 l, float multiplier);
+t_float3	float3_cross(t_float3 l, t_float3 r);
+t_float3	float3_normalize(t_float3 vec);
+t_float3	float3_transform(const t_float4x4 *l, t_float3 r);
+t_float3	float3_rot_x(t_float3 l, float rad);
+t_float3	float3_rot_y(t_float3 l, float rad);
+t_float3	float3_rot_z(t_float3 l, float rad);
 
-float		float3_len(const t_float3 *vec);
+float		float3_len(t_float3 vector);
 
 t_float4x4	float4x4_id(void);
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r);

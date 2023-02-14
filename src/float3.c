@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:04:03 by hseppane          #+#    #+#             */
-/*   Updated: 2023/01/23 15:17:34 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:40:36 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,42 @@
 
 #include <math.h>
 
-t_float3	float3_add(const t_float3 *l, const t_float3 *r)
+t_float3	float3_add(t_float3 l, t_float3 r)
 {
-	t_float3 out;
-
-	out.x = l->x + r->x;
-	out.y = l->y + r->y;
-	out.z = l->z + r->z;
-	return (out);
+	return ((t_float3){l.x + r.x, l.y + r.y, l.z + r.z});
 }
 
-t_float3	float3_sub(const t_float3 *l, const t_float3 *r)
+t_float3	float3_sub(t_float3 l, t_float3 r)
 {
-	t_float3 out;
-
-	out.x = l->x - r->x;
-	out.y = l->y - r->y;
-	out.z = l->z - r->z;
-	return (out);
+	return ((t_float3){l.x - r.x, l.y - r.y, l.z - r.z});
 }
 
-t_float3	float3_scalar(const t_float3 *l, float multiplier)
+t_float3	float3_scalar(t_float3 l, float multiplier)
 {
-	t_float3 out;
-
-	out.x = l->x * multiplier;
-	out.y = l->y * multiplier;
-	out.z = l->z * multiplier;
-	return (out);
+	return ((t_float3){l.x * multiplier, l.y * multiplier, l.z * multiplier});
 }
 
-t_float3	float3_cross(const t_float3 *l, const t_float3 *r)
+t_float3	float3_cross(t_float3 l, t_float3 r)
 {
-	t_float3 out;
-
-	out.x = l->y * r->z - l->z * r->y;
-	out.y = l->z * r->x - l->x * r->z;
-	out.z = l->x * r->y - l->y * r->x;
-	return (out);
+	return ((t_float3)
+	{
+		l.y * r.z - l.z * r.y,
+		l.z * r.x - l.x * r.z,
+		l.x * r.y - l.y * r.x
+	});
 }
 
-float	float3_len(const t_float3 *vec)
+float	float3_len(t_float3 vec)
 {
-	return (sqrtf(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z));
+	return (sqrtf(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }
 
-t_float3	float3_normalize(const t_float3 *vec)
+t_float3	float3_normalize(t_float3 vector)
 {
-	float		len;
-	t_float3	out;
+	const float	len = float3_len(vector);
 
-	len = float3_len(vec);
-	out.x = vec->x / len; 
-	out.y = vec->y / len; 
-	out.z = vec->z / len; 
-	return (out);
+	vector.x /= len;
+	vector.y /= len; 
+	vector.z /= len;
+	return (vector);
 }
