@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 12:19:09 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:57:07 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 
 // Bresenham line algorithm variation that tracks
 
-void	draw_line(t_framebuf *buf, t_int2 a, t_int2 b, unsigned int color)
+void	draw_line(t_framebuf *buf, t_int3 a, t_int3 b, unsigned int color)
 {
 	t_int2	delta;
 	t_int2	direction;

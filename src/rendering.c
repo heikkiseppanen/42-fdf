@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:03:07 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/11 20:00:10 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:12:38 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 static t_float4x4	calc_projection(const t_cam *view, const t_framebuf *buffer)
 {
 	const float aspect_ratio = (float)buffer->width / (float)buffer->height;
-	const float	ortho_fov = tanf(view->fov / 2) * view->far;
+	const float	ortho_fov = tanf(view->fov / 2) * (view->far / 2);
 	//const float	ortho_fov = tanf(view->fov / 2) * view->far;
 
 	if (view->orthographic)
@@ -35,16 +35,15 @@ static t_float4x4	calc_projection(const t_cam *view, const t_framebuf *buffer)
 	}
 }
 
-static t_float4x4	calc_view(const t_cam *scene_view)
+static t_float4x4	calc_scene_matrix(const t_scene *scene, t_framebuf *buffer)
 {
 	
 }
 
 int	render_scene(const t_scene *scene, t_framebuf *target_buffer)
 {
-	t_float4x4	matrix;
+	const t_float4x4	scene_matrix = calc_scene_matrix(scene, target_buffer);
 
 	framebuf_clear(target_buffer);
-	matrix = float4x4_mul();
-	dynarr_del(&vertices);
 }
+

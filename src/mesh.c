@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/13 16:03:52 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 14:07:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static int	read_map(t_dynarr *buffer, const char *filepath)
 	return (1);
 }
 
-static int parse_map(t_mesh *empty, const t_dynarr *map_data)
+static int parse_map(t_mesh *mesh, const t_dynarr *map_data)
 {
 	const char	*it = map_data->ptr;
-	t_vertex	vert;
+	t_float3	position;
 
-	empty->width = 0;
-	empty->depth = 0;
+	mesh->width = 0;
+	mesh->depth = 0;
 	while (*it)
 	{
-		vert.position = (t_float3){empty->width++, ft_atoi(it), empty->depth};
-		if (!dynarr_pushback(&empty->vertex_buffer, &vert, 1))
+		position = (t_float3){mesh->width++, ft_atoi(it), mesh->depth};
+		if (!dynarr_pushback(&mesh->position_buffer, &position, 1))
 			return (0);
 		while (*it && *it != '\n' && *it != ' ')
 			it++;
@@ -56,14 +56,14 @@ static int parse_map(t_mesh *empty, const t_dynarr *map_data)
 			it++;
 		if (*it == '\n')
 		{
-			empty->width = 0;
-			empty->depth++;
+			mesh->width = 0;
+			mesh->depth++;
 			it++;
 		}
 	}
-	if (empty->vertex_buffer.size % (int)empty->depth != 0)
+	if (mesh->position_buffer.size % mesh->depth != 0)
 		return (0);
-	empty->width = empty->vertex_buffer.size / empty->depth;
+	mesh->width = mesh->position_buffer.size / mesh->depth;
 	return (1);
 }
 
@@ -74,18 +74,12 @@ int	mesh_import(t_mesh *empty, const char *filepath)
 	map_data.ptr = NULL;
 	if (!dynarr_init(&map_data, MAP_READ_CHUNK_SIZE, sizeof(char)))
 		return (0);
-	if (!read_map(&map_data, filepath))
+	if (!mesh_init(empty)
+		|| !read_map(&map_data, filepath)
+		|| !parse_map(empty, &map_data))
 	{
 		dynarr_del(&map_data);
-		return (0);
-	}
-	empty->vertex_buffer.ptr = NULL;
-	if (!dynarr_init(&empty->vertex_buffer, MIN_VERTS, sizeof(t_float3)))
-		return (0);
-	if (!parse_map(empty, &map_data))
-	{
-		dynarr_del(&map_data);
-		dynarr_del(&empty->vertex_buffer);
+		mesh_del(empty);
 		return (0);
 	}
 	dynarr_del(&map_data);
@@ -93,10 +87,25 @@ int	mesh_import(t_mesh *empty, const char *filepath)
 	return (1);
 }
 
+int	mesh_init(t_mesh *empty)
+{
+	empty->position_buffer.ptr = NULL;
+	empty->color_buffer.ptr = NULL;
+	if (!dynarr_init(&empty->position_buffer, MIN_VERTS, sizeof(t_float3)))
+		return (0);
+	if (!dynarr_init(&empty->color_buffer, MIN_VERTS, sizeof(unsigned int)))
+	{
+		dynarr_del(&empty->position_buffer);
+		return (0);
+	}
+	empty->width = 0;
+	empty->height = 0;
+	empty->depth = 0;
+	return (1);
+}
+
 void	mesh_del(t_mesh *mesh)
 {
-	dynarr_del(&mesh->vertex_buffer);
-	mesh->width = 0;
-	mesh->height = 0;
-	mesh->depth = 0;
+	dynarr_del(&mesh->position_buffer);
+	dynarr_del(&mesh->color_buffer);
 }
