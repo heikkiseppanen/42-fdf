@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 14:57:07 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:06:36 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 		*(unsigned short*)(buf->data + offset) = color & 0xFFFF;
 }
 
+static int	ft_abs(int i)
+{
+	if (i < 0)
+		i *= -1;
+	return (i);
+}
+
 // Bresenham line algorithm variation that tracks
 
 void	draw_line(t_framebuf *buf, t_int3 a, t_int3 b, unsigned int color)
@@ -34,8 +41,8 @@ void	draw_line(t_framebuf *buf, t_int3 a, t_int3 b, unsigned int color)
 	int		error;
 	int		err2;
 	
-	delta.x = abs(b.x - a.x); // REWRITE ABS
-	delta.y = -abs(b.y - a.y);
+	delta.x = ft_abs(b.x - a.x);
+	delta.y = -ft_abs(b.y - a.y);
 	direction.x = -1 + (2 * (a.x < b.x));
 	direction.y = -1 + (2 * (a.y < b.y));
 	error = delta.x + delta.y;
