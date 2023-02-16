@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:01 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 10:45:00 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:11:55 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ typedef struct s_input
 	char	exit;
 	char	move;
 	char	rotate;
-	char	zoom_in;
-	char	zoom_out;
-	float	scroll_sens;
+	char	zoom;
+	char	projection_mode;
 	float	mouse_sens;
 	t_int2	mouse_position;
 	t_int2	mouse_movement;

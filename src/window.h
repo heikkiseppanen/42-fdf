@@ -6,12 +6,15 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 11:27:21 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:26:28 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WINDOW_H
 # define WINDOW_H
+
+# define WINDOW_WIDTH 1024
+# define WINDOW_HEIGHT 1024
 
 typedef struct s_framebuf
 {

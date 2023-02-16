@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:14:20 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 14:00:14 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:33:49 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 typedef struct s_scene
 {
 	t_cam		camera;
-	t_mesh		mesh;
 	t_transform	camera_transform;
+	t_mesh		mesh;
 	t_transform	mesh_transform;
-	t_shader_param shader_parameters;
+	t_float4x4	scene_matrix;
 }	t_scene;
 
 int		scene_init(t_scene *empty, const char *mesh_path);

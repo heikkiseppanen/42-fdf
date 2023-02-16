@@ -50,7 +50,7 @@ FT_LD := -L ./third-party/libft -lft
 
 CC := cc
 INCLUDE := -I$(MLX_DIR) -I$(FT_DIR) -I$(SRCDIR)
-CFLAGS := -g -fsanitize=address -Wall -Werror -Wextra $(INCLUDE)
+CFLAGS := -march=skylake -O3 -Wall -Werror -Wextra $(INCLUDE)
 LDFLAGS := -lm $(MLX_LD) $(FT_LD) 
 
 # Rules
@@ -58,7 +58,7 @@ LDFLAGS := -lm $(MLX_LD) $(FT_LD)
 all: $(NAME)
 
 $(NAME): $(MLX_AR) $(FT_AR) $(OBJ)
-	$(CC) -fsanitize=address -o $(NAME) $(OBJ) $(LDFLAGS)
+	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
 
 $(MLX_AR):
 	$(MAKE) -C $(MLX_DIR)

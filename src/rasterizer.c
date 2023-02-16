@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 14:19:16 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:46:48 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 	i = 0;
 	while (i < vert->size)
 	{
-		clip = float3_transform(mat, (t_float3 *)vert->ptr + i);
+		clip = float3_transform(mat, *((t_float3 *)vert->ptr + i));
 		screen.x = (mid.x + (mid.x * clip.x)) + 0.5; 
 		screen.y = (mid.y - (mid.y * clip.y)) + 0.5; 
 		if (!dynarr_pushback(&screen_coords, &screen, 1))
@@ -39,15 +39,6 @@ static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 		i++;
 	}
 	return (screen_coords);
-}
-
-static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
-{
-	while (--points)
-	{
-		draw_line(buf, *start, *(start + 1), 0x00FFFFFF);
-		start++;
-	}
 }
 
 static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
@@ -59,17 +50,37 @@ static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
 	}
 }
 
-int	draw_grid(const t_uint3 *pixel_coord, int width, int depth, t_framebuf *buf);
+static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
 {
+	while (--points)
+	{
+		draw_line(buf, *start, *(start + 1), 0x00FFFFFF);
+		start++;
+	}
+}
+
+int	draw_mesh(t_framebuf *buf, t_mesh *mesh, t_float4x4 *matrix)
+{
+	t_dynarr	screen_coord; 
+	t_int2		*coords;
+	t_int2		i;
+
+	framebuf_clear(buf);
+	screen_coord = to_scr_space(&mesh->position_buffer, matrix, buf);
+	coords = screen_coord.ptr;
+	if (!coords)
+		return (0);
 	i = (t_int2){0, 0};
 	while (i.x < mesh->width)
 	{
-		draw_col(buf, coord + i.x, depth, mesh->width);
+		draw_col(buf, coords + i.x, mesh->depth, mesh->width);
 		i.x++;
 	}
 	while (i.y < mesh->depth)
 	{
-		draw_row(buf, coord + (i.y * width), mesh->width);
+		draw_row(buf, coords + (i.y * mesh->width), mesh->width);
 		i.y++;
 	}
+	dynarr_del(&screen_coord);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 20:17:30 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 16:01:30 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 
 static int	ft_abs(int i)
 {
-	if (i < 0)
-		i *= -1;
-	return (i);
+	return (i * ((i > 0) - (i < 0)));
 }
 
 // Bresenham line algorithm variation that tracks

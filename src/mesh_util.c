@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:05 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/13 14:47:21 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:01:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void center_mesh(t_mesh *mesh)
 {
-	const float	offset_x = mesh->width / 2;
-	const float	offset_z = mesh->depth / 2;
+	const float	offset_x = (float)(mesh->width - 1) / 2;
+	const float	offset_z = (float)(mesh->depth - 1) / 2;
 	t_float3	*it;
 	t_float3	*end;
 	
-	it = mesh->vertex_buffer.ptr;
-	end = it + mesh->vertex_buffer.size;
+	it = mesh->position_buffer.ptr;
+	end = it + mesh->position_buffer.size;
 	while (it != end)
 	{
 		it->x -= offset_x;
