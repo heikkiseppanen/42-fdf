@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 11:32:32 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:41:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	window_init(t_window *empty, int width, int height, char *title)
 	empty->mlx_image = mlx_new_image(empty->mlx_handle, width, height);
 	if (!empty->mlx_image)
 		return (0);
-	if (!framebuf_init(&empty->framebuffer, empty))
-		return (0);
 	empty->width = width;
 	empty->height = height;
+	if (!framebuf_init(&empty->framebuffer, empty))
+		return (0);
 	return (1);
 }
 
