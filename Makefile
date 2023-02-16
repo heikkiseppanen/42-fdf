@@ -21,7 +21,7 @@ input.c \
 draw.c \
 rasterizer.c \
 mesh.c \
-mesh_utils.c \
+mesh_util.c \
 
 OBJ := $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 DEP := $(OBJ:%.o=%.d)
