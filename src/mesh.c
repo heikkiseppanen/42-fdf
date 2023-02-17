@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 14:07:43 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:45:05 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ int	mesh_import(t_mesh *empty, const char *filepath)
 
 int	mesh_init(t_mesh *empty)
 {
-	empty->position_buffer.ptr = NULL;
-	empty->color_buffer.ptr = NULL;
+	*empty = (t_mesh){};
 	if (!dynarr_init(&empty->position_buffer, MIN_VERTS, sizeof(t_float3)))
 		return (0);
 	if (!dynarr_init(&empty->color_buffer, MIN_VERTS, sizeof(unsigned int)))
@@ -98,9 +97,6 @@ int	mesh_init(t_mesh *empty)
 		dynarr_del(&empty->position_buffer);
 		return (0);
 	}
-	empty->width = 0;
-	empty->height = 0;
-	empty->depth = 0;
 	return (1);
 }
 

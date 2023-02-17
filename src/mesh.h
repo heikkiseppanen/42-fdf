@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/14 16:04:05 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:46:15 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct s_mesh
 	t_dynarr	position_buffer;
 	t_dynarr	color_buffer;
 	int			width;
-	int			height;
 	int			depth;
 }	t_mesh;
 

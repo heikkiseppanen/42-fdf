@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 11:29:24 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 13:12:29 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ int		scene_init(t_scene *empty, const char *mesh_path)
 {
 	t_transform *t;;
 
-	ft_printf("Initializing scene with mesh: %s\n ...", mesh_path);
+	ft_printf("Initializing scene with mesh: %s\n", mesh_path);
 	if (!mesh_import(&empty->mesh, mesh_path))
+	{
+		ft_printf("Mesh import error!", mesh_path);
 		return (0);
+	}
 	cam_init(&empty->camera, rad(90), 1);
 	t = &empty->camera_transform;
 	t->position = (t_float3){0.0, 0.0, 1.0}; 
