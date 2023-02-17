@@ -10,6 +10,7 @@ main.c \
 app.c \
 camera.c \
 scene.c \
+ft_math.c \
 int2.c \
 int3.c \
 float3.c \

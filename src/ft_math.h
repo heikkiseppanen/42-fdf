@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/15 12:07:56 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:02:07 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct s_transform
 	t_float3	rotation;
 	t_float3	scale;
 }	t_transform;
+
+float		clamp(float value, float min, float max);
+float		rad(float deg);
+float		deg(float rad);
 
 t_int2		int2_add(t_int2 l, t_int2 r);
 t_int2		int2_sub(t_int2 l, t_int2 r);
