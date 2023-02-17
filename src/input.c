@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 13:51:35 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 08:29:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@
 
 #include <math.h> // M_PI
 
-static int	keydown_hook(int keycode, void *input_state)
+static int	keydown_hook(int keycode, t_input *input)
 {
-	t_input *const	input = input_state;
-
 	if (keycode == KEY_ESCAPE)
 		input->exit = 1;
 	else if (keycode == KEY_P) 
@@ -31,9 +29,8 @@ static int	keydown_hook(int keycode, void *input_state)
 	return (1);
 }
 
-static int	mousemove_hook(int x, int y, void *input_state)
+static int	mousemove_hook(int x, int y, t_input *input)
 {
-	t_input *const	input = input_state;
 	const t_int2	new_pos = {x, y};
 
 	input->mouse_movement = int2_sub(input->mouse_position, new_pos);
@@ -41,11 +38,9 @@ static int	mousemove_hook(int x, int y, void *input_state)
 	return (1);
 }
 
-static int	mousedown_hook(int button, int x, int y, void *input_state)
+static int	mousedown_hook(int button, int x, int y, t_input *input)
 {
-	t_input *const	input = input_state;
-
-	mousemove_hook(x, y, input_state);
+	mousemove_hook(x, y, input);
 	if (button == MOUSE_LEFT) 
 		input->move = 1;
 	else if (button == MOUSE_RIGHT) 
@@ -55,11 +50,9 @@ static int	mousedown_hook(int button, int x, int y, void *input_state)
 	return (1);
 }
 
-static int	mouseup_hook(int button, int x, int y, void *input_state)
+static int	mouseup_hook(int button, int x, int y, t_input *input)
 {
-	t_input *const	input = input_state;
-
-	mousemove_hook(x, y, input_state);
+	mousemove_hook(x, y, input);
 	if (button == MOUSE_LEFT) 
 		input->move= 0;
 	else if (button == MOUSE_RIGHT) 
