@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:14:20 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/15 09:33:49 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:32:04 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ typedef struct s_scene
 int		scene_init(t_scene *empty, const char *mesh_path);
 void	scene_del(t_scene *scene);
 
-void	scene_update(t_scene *scene, const t_input *input);
+void	scene_update(t_scene *scene, t_input *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 13:50:46 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:29:24 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int		scene_init(t_scene *empty, const char *mesh_path)
 	ft_printf("Initializing scene with mesh: %s\n ...", mesh_path);
 	if (!mesh_import(&empty->mesh, mesh_path))
 		return (0);
-	cam_init(&empty->camera, M_PI / 2, 1);
+	cam_init(&empty->camera, rad(90), 1);
 	t = &empty->camera_transform;
 	t->position = (t_float3){0.0, 0.0, 1.0}; 
-	t->position = float3_rot_x(t->position, -ISO_ANGLE * (M_PI / 180));
-	t->position = float3_rot_y(t->position, M_PI / 4);
-	t->position = float3_scalar(t->position, empty->mesh.width + empty->mesh.height / 2);
-	//t->rotation = (t_float3){0.0, ISO_ANGLE * (M_PI / 180), -M_PI / 4};
+	t->position = float3_rot_x(t->position, rad(-ISO_ANGLE));
+	t->position = float3_rot_y(t->position, rad(45));
+	t->position = float3_scalar(t->position, empty->mesh.width);
+	empty->camera.far = float3_len(t->position) + empty->mesh.width;
+	empty->camera.ortho_size = empty->mesh.width / 2;
 	t = &empty->mesh_transform;
 	t->position = (t_float3){0.0, 0.0, 0.0};
 	t->rotation = (t_float3){0.0, 0.0, 0.0};
@@ -55,19 +56,9 @@ void	scene_del(t_scene *scene)
 	mesh_del(&scene->mesh);
 }
 
-void	scene_update(t_scene *scene, const t_input *input)
+void	scene_update(t_scene *scene, t_input *input)
 {
-	t_float3 *pos = &scene->camera_transform.position;
-
-	scene->camera.orthographic = input->projection_mode;
-	if (input->rotate)
-	{
-		*pos = float3_rot_y(*pos, input->mouse_movement.x * input->mouse_sens);
-	}
-	if (input->zoom)
-	{
-		scene->camera.fov += input->mouse_movement.y * input->mouse_sens;
-	}
+	cam_update(&scene->camera, &scene->camera_transform, input);
 	scene->scene_matrix = calc_scene_matrix(scene);
 }
 

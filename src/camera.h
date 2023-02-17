@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:17:42 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/15 10:09:19 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 10:31:08 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 	
 # include "ft_math.h"
 
-# define DEFAULT_FOV 90
+# include "input.h"
 
 typedef struct s_cam
 {
-	int			orthographic;
+	int			is_ortho;
+	float		ortho_scale;
+	float		ortho_size;
 	float		fov;
 	float		aspect;
 	float		near;
@@ -27,6 +29,7 @@ typedef struct s_cam
 }	t_cam;
 
 void		cam_init(t_cam *empty, float fov, int is_ortho);
+void		cam_update(t_cam *camera, t_transform *transform, t_input *input);
 t_float4x4	cam_calc_projection(const t_cam *view);
 t_float4x4	cam_calc_view(const t_transform *transform);
 
