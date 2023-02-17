@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 16:01:30 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/17 11:01:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	put_pixel(t_framebuf *buf, t_int2 pos, unsigned int color)
 	offset = pos.x * buf->color_bytes + pos.y * buf->width * buf->color_bytes;
 	if (buf->color_bytes == 4)
 		*(unsigned int*)(buf->data + offset) = color;
-	if (buf->color_bytes == 2)
+	else if (buf->color_bytes == 2)
 		*(unsigned short*)(buf->data + offset) = color & 0xFFFF;
 }
 
