@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 17:38:42 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 20:55:34 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:11:33 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ enum	e_mouse_button
 	MOUSE_MID = 2,
 	SCROLL_DOWN = 5,
 	SCROLL_UP = 4,
+	KEY_P = 34
 };
 
 #endif
