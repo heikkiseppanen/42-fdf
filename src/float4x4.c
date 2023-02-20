@@ -6,24 +6,13 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/15 12:07:29 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:30:25 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
 #include <math.h>
-
-t_float4x4	float4x4_id(void)
-{
-	const t_float4x4	a = {
-	{1.0, 0.0, 0.0, 0.0},
-	{0.0, 1.0, 0.0, 0.0},
-	{0.0, 0.0, 1.0, 0.0},
-	{0.0, 0.0, 0.0, 1.0}};
-
-	return (a);
-}
 
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r)
 {
@@ -44,6 +33,7 @@ t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r)
 		l->d.x * r->a.y + l->d.y * r->b.y + l->d.z * r->c.y + l->d.w * r->d.y,
 		l->d.x * r->a.z + l->d.y * r->b.z + l->d.z * r->c.z + l->d.w * r->d.z,
 		l->d.x * r->a.w + l->d.y * r->b.w + l->d.z * r->c.w + l->d.w * r->d.w}};
+
 	return (result);
 }
 
@@ -61,10 +51,10 @@ t_float4x4	float4x4_model(const t_transform *transform)
 
 t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 {
-	const t_float3	min = {-size * aspect, -size, zmin}; 
-	const t_float3	max = {size * aspect, size, zmax}; 
-	t_float4x4	proj;
-	
+	const t_float3	min = {-size * aspect, -size, zmin};
+	const t_float3	max = {size * aspect, size, zmax};
+	t_float4x4		proj;
+
 	proj.a.x = 2 / (max.x - min.x);
 	proj.a.y = 0.0;
 	proj.a.z = 0.0;
@@ -83,11 +73,11 @@ t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
 
 t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
 {
-	const float		size = tanf(fov/2) * zmin;
-	const t_float3	min = {-size * aspect, -size, zmin}; 
-	const t_float3	max = {size * aspect, size, zmax}; 
-	t_float4x4	proj;
-	
+	const float		size = tanf(fov / 2) * zmin;
+	const t_float3	min = {-size * aspect, -size, zmin};
+	const t_float3	max = {size * aspect, size, zmax};
+	t_float4x4		proj;
+
 	proj.a.x = (2 * min.z) / (max.x - min.x);
 	proj.a.y = 0.0;
 	proj.a.z = (max.x + min.x) / (max.x - min.x);

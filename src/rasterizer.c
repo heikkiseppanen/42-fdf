@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 11:46:48 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:56:38 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 	while (i < vert->size)
 	{
 		clip = float3_transform(mat, *((t_float3 *)vert->ptr + i));
-		screen.x = (mid.x + (mid.x * clip.x)) + 0.5; 
-		screen.y = (mid.y - (mid.y * clip.y)) + 0.5; 
+		screen.x = (mid.x + (mid.x * clip.x)) + 0.5;
+		screen.y = (mid.y - (mid.y * clip.y)) + 0.5;
 		if (!dynarr_pushback(&screen_coords, &screen, 1))
-			break;
+			break ;
 		i++;
 	}
 	return (screen_coords);
@@ -43,25 +43,30 @@ static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 
 static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
 {
+	const t_float3 c0 = {0.0, 0.0, 1.0};
+	const t_float3 c1 = {1.0, 0.0, 0.0};
+
 	while (--points)
 	{
-		draw_line(buf, *start, *(start + offset), 0x00FFFFFF);
+		draw_line(buf, *start, *(start + offset), c0, c1);
 		start += offset;
 	}
 }
 
 static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
 {
+	const t_float3 c0 = {0.0, 0.0, 1.0};
+	const t_float3 c1 = {1.0, 0.0, 0.0};
 	while (--points)
 	{
-		draw_line(buf, *start, *(start + 1), 0x00FFFFFF);
+		draw_line(buf, *start, *(start + 1), c0, c1);
 		start++;
 	}
 }
 
 int	draw_mesh(t_framebuf *buf, t_mesh *mesh, t_float4x4 *matrix)
 {
-	t_dynarr	screen_coord; 
+	t_dynarr	screen_coord;
 	t_int2		*coords;
 	t_int2		i;
 

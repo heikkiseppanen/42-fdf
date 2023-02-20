@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:14:20 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 10:32:04 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:17:40 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "mesh.h"
 # include "ft_math.h"
 # include "rendering.h"
-	
+
 typedef struct s_scene
 {
 	t_cam		camera;

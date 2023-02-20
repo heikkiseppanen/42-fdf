@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:01 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 12:11:55 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:21:34 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ typedef struct s_input
 	t_int2	mouse_movement;
 }	t_input;
 
-void input_init(t_input *empty, void *mlx_window);
+void	input_init(t_input *empty, void *mlx_window);
 
 #endif

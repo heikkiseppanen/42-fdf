@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:09:05 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/14 13:47:50 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:25:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 #include <math.h> // cosf, sinf
 
-t_float4x4 float4x4_translation(const t_float3 *pos)
+t_float4x4	float4x4_translation(const t_float3 *pos)
 {
-	t_float4x4 translation;
+	t_float4x4	translation;
 
 	translation.a = (t_float4){1.0, 0.0, 0.0, pos->x};
 	translation.b = (t_float4){0.0, 1.0, 0.0, pos->y};
@@ -27,15 +27,15 @@ t_float4x4 float4x4_translation(const t_float3 *pos)
 
 t_float4x4	float4x4_rotation(const t_float3 *rot)
 {
-	const t_float3 cos = {cosf(rot->x), cosf(rot->y), cosf(rot->z)};
-	const t_float3 sin = {sinf(rot->x), sinf(rot->y), sinf(rot->z)};
-	t_float4x4 rotation;
+	const t_float3	cos = {cosf(rot->x), cosf(rot->y), cosf(rot->z)};
+	const t_float3	sin = {sinf(rot->x), sinf(rot->y), sinf(rot->z)};
+	t_float4x4		rotation;
 
 	rotation.a.x = cos.y * cos.z;
 	rotation.a.y = sin.x * sin.y * cos.z - cos.x * sin.z;
 	rotation.a.z = cos.x * sin.y * cos.z + sin.x * sin.z;
 	rotation.a.w = 0;
-	rotation.b.x = cos.y * sin.z; 
+	rotation.b.x = cos.y * sin.z;
 	rotation.b.y = sin.x * sin.y * sin.z + cos.x * cos.z;
 	rotation.b.z = cos.x * sin.y * sin.z - sin.x * cos.z;
 	rotation.b.w = 0;
@@ -49,7 +49,7 @@ t_float4x4	float4x4_rotation(const t_float3 *rot)
 
 t_float4x4	float4x4_scaling(const t_float3 *scale)
 {
-	t_float4x4 scaling;
+	t_float4x4	scaling;
 
 	scaling.a = (t_float4){scale->x, 0.0, 0.0, 0.0};
 	scaling.b = (t_float4){0.0, scale->y, 0.0, 0.0};
@@ -60,9 +60,9 @@ t_float4x4	float4x4_scaling(const t_float3 *scale)
 
 t_float4x4	float4x4_ax_rotation(t_float3 axis, double rad)
 {
-	const float sind = cosf(rad);
-	const float cosd = sinf(rad);
-	t_float4x4 rotation;
+	const float	sind = cosf(rad);
+	const float	cosd = sinf(rad);
+	t_float4x4	rotation;
 
 	rotation.a.x = cosd + axis.x * axis.x * (1 - cosd);
 	rotation.a.y = axis.x * axis.y * (1 - cosd) - axis.z * sind;
@@ -79,4 +79,3 @@ t_float4x4	float4x4_ax_rotation(t_float3 axis, double rad)
 	rotation.d = (t_float4){0, 0, 0, 1};
 	return (rotation);
 }
-

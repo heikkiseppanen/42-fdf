@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/09 11:18:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:36:10 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 #include <libft.h>
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_app fdf;
+	t_app	fdf;
 
 	if (argc != 2)
 	{

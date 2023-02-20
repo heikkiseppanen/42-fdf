@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 10:26:28 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:17:15 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_framebuf
 	int		width;
 	int		height;
 	int		endian;
-} t_framebuf;
+}	t_framebuf;
 
 typedef struct s_window
 {
@@ -33,7 +33,7 @@ typedef struct s_window
 	int			width;
 	int			height;
 	t_framebuf	framebuffer;
-} t_window;
+}	t_window;
 
 enum e_window_event_type
 {

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 11:03:18 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:37:28 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	cam_init(t_cam *empty, float fov, int is_ortho)
 
 void	cam_update(t_cam *camera, t_transform *transform, t_input *input)
 {
-	const float mouse_x = input->mouse_movement.x * input->mouse_sens;
-	const float mouse_y = input->mouse_movement.y * input->mouse_sens;
+	const float	mouse_x = input->mouse_movement.x * input->mouse_sens;
+	const float	mouse_y = input->mouse_movement.y * input->mouse_sens;
 
 	camera->is_ortho = !input->projection_mode;
 	if (input->rotate)
@@ -51,7 +51,7 @@ t_float4x4	cam_calc_projection(const t_cam *view)
 	float	ortho_fov;
 
 	if (view->is_ortho)
-	{ 
+	{
 		ortho_fov = view->ortho_scale * view->ortho_size;
 		return (float4x4_ortho(ortho_fov, view->aspect, view->near, view->far));
 	}
@@ -63,7 +63,7 @@ t_float4x4	cam_calc_projection(const t_cam *view)
 
 t_float4x4	cam_calc_view(const t_transform *transform)
 {
-	const t_float3 target = (t_float3){ 0.0f, 0.0f, 0.0f };
+	const t_float3	target = (t_float3){0.0f, 0.0f, 0.0f};
 
 	return (float4x4_view(transform->position, target));
 }

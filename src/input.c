@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 08:29:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:24:05 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	keydown_hook(int keycode, t_input *input)
 {
 	if (keycode == KEY_ESCAPE)
 		input->exit = 1;
-	else if (keycode == KEY_P) 
+	else if (keycode == KEY_P)
 		input->projection_mode = !input->projection_mode;
 	return (1);
 }
@@ -41,11 +41,11 @@ static int	mousemove_hook(int x, int y, t_input *input)
 static int	mousedown_hook(int button, int x, int y, t_input *input)
 {
 	mousemove_hook(x, y, input);
-	if (button == MOUSE_LEFT) 
+	if (button == MOUSE_LEFT)
 		input->move = 1;
-	else if (button == MOUSE_RIGHT) 
+	else if (button == MOUSE_RIGHT)
 		input->rotate = 1;
-	else if (button == MOUSE_MID) 
+	else if (button == MOUSE_MID)
 		input->zoom = 1;
 	return (1);
 }
@@ -53,17 +53,16 @@ static int	mousedown_hook(int button, int x, int y, t_input *input)
 static int	mouseup_hook(int button, int x, int y, t_input *input)
 {
 	mousemove_hook(x, y, input);
-	if (button == MOUSE_LEFT) 
-		input->move= 0;
-	else if (button == MOUSE_RIGHT) 
-		input->rotate= 0;
-	else if (button == MOUSE_MID) 
+	if (button == MOUSE_LEFT)
+		input->move = 0;
+	else if (button == MOUSE_RIGHT)
+		input->rotate = 0;
+	else if (button == MOUSE_MID)
 		input->zoom = 0;
 	return (1);
 }
 
-
-void input_init(t_input *empty, void *mlx_window)
+void	input_init(t_input *empty, void *mlx_window)
 {
 	empty->move = 0;
 	empty->rotate = 0;

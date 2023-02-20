@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:26:30 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 09:51:33 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:46:06 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,17 @@ t_float3	float3_transform(const t_float4x4 *l, t_float3 r)
 	return (out);
 }
 
-t_float3 float3_rot_x(t_float3 l, float rad)
+t_float3	float3_normalize(t_float3 vector)
+{
+	const float	len = float3_len(vector);
+
+	vector.x /= len;
+	vector.y /= len; 
+	vector.z /= len;
+	return (vector);
+}
+
+t_float3	float3_rot_x(t_float3 l, float rad)
 {
 	const float	dcos = cosf(rad);
 	const float	dsin = sinf(rad);
@@ -44,7 +54,7 @@ t_float3 float3_rot_x(t_float3 l, float rad)
 	return (result);
 }
 
-t_float3 float3_rot_y(t_float3 l, float rad)
+t_float3	float3_rot_y(t_float3 l, float rad)
 {
 	const float	dcos = cosf(rad);
 	const float	dsin = sinf(rad);
@@ -56,14 +66,11 @@ t_float3 float3_rot_y(t_float3 l, float rad)
 	return (result);
 }
 
-t_float3 float3_rot_z(t_float3 l, float rad)
+t_float3	float3_cross(t_float3 l, t_float3 r)
 {
-	const float	dcos = cosf(rad);
-	const float	dsin = sinf(rad);
-	t_float3	result;
-
-	result.x = (l.x * dcos) - (l.y * dsin);
-	result.y = (l.x * dsin) + (l.y * dcos);
-	result.z = l.z;
-	return (result);
+	return ((t_float3){
+		l.y * r.z - l.z * r.y,
+		l.z * r.x - l.x * r.z,
+		l.x * r.y - l.y * r.x
+	});
 }

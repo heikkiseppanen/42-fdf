@@ -6,16 +6,22 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 08:46:15 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:35:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_H
-# define GRAPHICS_H
+#ifndef MESH_H
+# define MESH_H
 
-#include "ft_math.h"
+# include "ft_math.h"
 
-#include <libft.h>
+# include <libft.h>
+
+typedef struct s_vertex
+{
+	t_float3 position;
+	t_float3 color;
+}	t_vertex;
 
 typedef struct s_mesh
 {

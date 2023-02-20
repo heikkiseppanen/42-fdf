@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 08:26:40 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:39:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ int	app_terminate(t_app *instance, int exit_code)
 
 int	app_mlx_loop(t_app *app)
 {
+	t_window *const	window = &app->window;
+
 	scene_update(&app->scene, &app->input);
-	draw_mesh(&app->window.framebuffer, &app->scene.mesh, &app->scene.scene_matrix);
-	window_swap_buf(&app->window);
+	draw_mesh(&window->framebuffer, &app->scene.mesh, &app->scene.scene_matrix);
+	window_swap_buf(window);
 	if (app->input.exit)
 	{
 		app_terminate(app, 0);

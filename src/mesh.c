@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 08:45:05 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:21:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	read_map(t_dynarr *buffer, const char *filepath)
 	return (1);
 }
 
-static int parse_map(t_mesh *mesh, const t_dynarr *map_data)
+static int	parse_map(t_mesh *mesh, const t_dynarr *map_data)
 {
 	const char	*it = map_data->ptr;
 	t_float3	position;

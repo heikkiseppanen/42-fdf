@@ -6,13 +6,13 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:17:42 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 10:31:08 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:37:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
-	
+
 # include "ft_math.h"
 
 # include "input.h"

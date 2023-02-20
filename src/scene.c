@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 13:12:29 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:18:50 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static	t_float4x4	calc_scene_matrix(t_scene *source)
 	return (scene_matrix);
 }
 
-int		scene_init(t_scene *empty, const char *mesh_path)
+int	scene_init(t_scene *empty, const char *mesh_path)
 {
-	t_transform *t;;
+	t_transform	*t;
 
 	ft_printf("Initializing scene with mesh: %s\n", mesh_path);
 	if (!mesh_import(&empty->mesh, mesh_path))
@@ -40,7 +40,7 @@ int		scene_init(t_scene *empty, const char *mesh_path)
 	}
 	cam_init(&empty->camera, rad(90), 1);
 	t = &empty->camera_transform;
-	t->position = (t_float3){0.0, 0.0, 1.0}; 
+	t->position = (t_float3){0.0, 0.0, 1.0};
 	t->position = float3_rot_x(t->position, rad(-ISO_ANGLE));
 	t->position = float3_rot_y(t->position, rad(45));
 	t->position = float3_scalar(t->position, empty->mesh.width);
@@ -64,4 +64,3 @@ void	scene_update(t_scene *scene, t_input *input)
 	cam_update(&scene->camera, &scene->camera_transform, input);
 	scene->scene_matrix = calc_scene_matrix(scene);
 }
-
