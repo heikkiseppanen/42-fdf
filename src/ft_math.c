@@ -6,13 +6,18 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 09:02:06 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 10:01:41 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:47:07 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
 #include <math.h>
+
+float	lerp(float start, float end, float factor)
+{
+	return ((1 - factor) * start + factor * end);
+}
 
 float	clamp(float value, float min, float max)
 {

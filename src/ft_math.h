@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/17 10:02:07 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:47:07 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_transform
 	t_float3	scale;
 }	t_transform;
 
+float		lerp(float start, float end, float factor);
 float		clamp(float value, float min, float max);
 float		rad(float deg);
 float		deg(float rad);
@@ -69,6 +70,7 @@ t_int3		int3_sub(t_int3 l, t_int3 r);
 t_float3	float3_add(t_float3 l, t_float3 r);
 t_float3	float3_sub(t_float3 l, t_float3 r);
 t_float3	float3_scalar(t_float3 l, float multiplier);
+t_float3	float3_lerp(t_float3 start, t_float3 end, float factor);
 t_float3	float3_cross(t_float3 l, t_float3 r);
 t_float3	float3_normalize(t_float3 vec);
 t_float3	float3_transform(const t_float4x4 *l, t_float3 r);
@@ -78,7 +80,6 @@ t_float3	float3_rot_z(t_float3 l, float rad);
 
 float		float3_len(t_float3 vector);
 
-t_float4x4	float4x4_id(void);
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r);
 t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax);
 t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax);
