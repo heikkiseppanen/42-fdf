@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 10:38:56 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:41:27 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # define WINDOW_WIDTH 1024
 # define WINDOW_HEIGHT 1024
 
-typedef struct s_framebuf
+typedef struct s_frame
 {
 	char	*data;
+	float	*depth_buffer;
 	int		color_bytes;
 	int		width;
 	int		height;
 	int		endian;
-}	t_framebuf;
+}	t_frame;
 
 typedef struct s_window
 {
@@ -32,7 +33,7 @@ typedef struct s_window
 	void		*mlx_image;
 	int			width;
 	int			height;
-	t_framebuf	framebuffer;
+	t_frame	framebuffer;
 }	t_window;
 
 enum e_window_event_type
@@ -50,6 +51,6 @@ void	window_del(t_window *win);
 
 void	window_swap_buf(t_window *win);
 
-void	framebuf_clear(t_framebuf *buf, unsigned int color);
+void	frame_clear(t_frame *buf, unsigned int color);
 
 #endif

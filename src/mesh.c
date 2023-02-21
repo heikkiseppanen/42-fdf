@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 09:47:53 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 11:36:35 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static int	parse_map(t_mesh *mesh, const t_dynarr *map_data)
 	const char	*it = map_data->ptr;
 	t_vertex	vertex;
 
-	mesh->width = 0;
-	mesh->depth = 0;
 	while (*it)
 	{
+		while (*it == ' ')
+			it++;
 		vertex.position = (t_float3){mesh->width++, ft_atoi(it), mesh->depth};
-		if (!dynarr_pushback(&mesh->vertex_buffer, &vertex.position, 1))
+		if (!dynarr_pushback(&mesh->vertex_buffer, &vertex, 1))
 			return (0);
 		while (*it && *it != '\n' && *it != ' ')
 			it++;
