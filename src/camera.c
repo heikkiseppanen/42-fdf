@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 09:37:28 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:04:08 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	cam_update(t_cam *camera, t_transform *transform, t_input *input)
 
 t_float4x4	cam_calc_projection(const t_cam *view)
 {
-	float	ortho_fov;
+	float	size;
 
 	if (view->is_ortho)
 	{
-		ortho_fov = view->ortho_scale * view->ortho_size;
-		return (float4x4_ortho(ortho_fov, view->aspect, view->near, view->far));
+		size = view->ortho_scale * view->ortho_size;
+		return (float4x4_ortho(size, view->aspect, view->near, view->far));
 	}
 	else
 	{
