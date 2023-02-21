@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 09:24:05 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:07:02 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	mousemove_hook(int x, int y, t_input *input)
 
 static int	mousedown_hook(int button, int x, int y, t_input *input)
 {
-	mousemove_hook(x, y, input);
+	(void)x;
+	(void)y;
 	if (button == MOUSE_LEFT)
 		input->move = 1;
 	else if (button == MOUSE_RIGHT)
@@ -52,7 +53,8 @@ static int	mousedown_hook(int button, int x, int y, t_input *input)
 
 static int	mouseup_hook(int button, int x, int y, t_input *input)
 {
-	mousemove_hook(x, y, input);
+	(void)x;
+	(void)y;
 	if (button == MOUSE_LEFT)
 		input->move = 0;
 	else if (button == MOUSE_RIGHT)

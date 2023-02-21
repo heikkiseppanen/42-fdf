@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 14:56:38 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:41:08 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,73 +19,86 @@
 
 static t_dynarr	to_scr_space(t_dynarr *vert, t_float4x4 *mat, t_framebuf *buf)
 {
+	const t_vertex	*it = vert->ptr;
+	const t_vertex	*end = it + vert->size;
 	const t_int2	mid = {buf->width / 2, buf->height / 2};
-	size_t			i;
-	t_float3		clip;
 	t_dynarr		screen_coords;
-	t_int2			screen;
+	t_vertex		vertex;
 
-	screen_coords.ptr = NULL;
-	if (!dynarr_init(&screen_coords, vert->size, sizeof(t_int2)))
+	screen_coords = (t_dynarr){};
+	if (!dynarr_init(&screen_coords, vert->size, sizeof(t_vertex)))
 		return (screen_coords);
-	i = 0;
-	while (i < vert->size)
+	while (it != end)
 	{
-		clip = float3_transform(mat, *((t_float3 *)vert->ptr + i));
-		screen.x = (mid.x + (mid.x * clip.x)) + 0.5;
-		screen.y = (mid.y - (mid.y * clip.y)) + 0.5;
-		if (!dynarr_pushback(&screen_coords, &screen, 1))
+		vertex.position = float3_transform(mat, it->position);
+		vertex.position.x = (mid.x + (mid.x * vertex.position.x)) + 0.5;
+		vertex.position.y = (mid.y - (mid.y * vertex.position.y)) + 0.5;
+		vertex.color = it->color;
+		if (!dynarr_pushback(&screen_coords, &vertex, 1))
 			break ;
-		i++;
+		it++;
 	}
 	return (screen_coords);
 }
 
-static void	draw_col(t_framebuf *buf, t_int2 *start, int points, int offset)
+static void	draw_col(t_framebuf *buf, t_vertex *start, int points, int offset)
 {
-	const t_float3 c0 = {0.0, 0.0, 1.0};
-	const t_float3 c1 = {1.0, 0.0, 0.0};
+	t_int2	a;
+	t_int2	b;
+	t_float3 c0;
+	t_float3 c1;
 
 	while (--points)
 	{
-		draw_line(buf, *start, *(start + offset), c0, c1);
+		a = (t_int2){start->position.x, start->position.y};
+		c0 = start->color;
 		start += offset;
+		b = (t_int2){start->position.x, start->position.y};
+		c1 = start->color;
+		draw_line(buf, a, b, c0, c1);
 	}
 }
 
-static void	draw_row(t_framebuf *buf, t_int2 *start, int points)
+static void	draw_row(t_framebuf *buf, t_vertex *start, int points)
 {
-	const t_float3 c0 = {0.0, 0.0, 1.0};
-	const t_float3 c1 = {1.0, 0.0, 0.0};
+	t_int2	a;
+	t_int2	b;
+	t_float3 c0;
+	t_float3 c1;
+
 	while (--points)
 	{
-		draw_line(buf, *start, *(start + 1), c0, c1);
+		a = (t_int2){start->position.x, start->position.y};
+		c0 = start->color;
 		start++;
+		b = (t_int2){start->position.x, start->position.y};
+		c1 = start->color;
+		draw_line(buf, a, b, c0, c1);
 	}
 }
 
 int	draw_mesh(t_framebuf *buf, t_mesh *mesh, t_float4x4 *matrix)
 {
-	t_dynarr	screen_coord;
-	t_int2		*coords;
+	t_dynarr	transformed_vertices;
+	t_vertex	*vertex;
 	t_int2		i;
 
-	framebuf_clear(buf);
-	screen_coord = to_scr_space(&mesh->position_buffer, matrix, buf);
-	coords = screen_coord.ptr;
-	if (!coords)
+	framebuf_clear(buf, 0x002E3440);
+	transformed_vertices = to_scr_space(&mesh->vertex_buffer, matrix, buf);
+	vertex = transformed_vertices.ptr;
+	if (!vertex)
 		return (0);
 	i = (t_int2){0, 0};
 	while (i.x < mesh->width)
 	{
-		draw_col(buf, coords + i.x, mesh->depth, mesh->width);
+		draw_col(buf, vertex + i.x, mesh->depth, mesh->width);
 		i.x++;
 	}
 	while (i.y < mesh->depth)
 	{
-		draw_row(buf, coords + (i.y * mesh->width), mesh->width);
+		draw_row(buf, vertex + (i.y * mesh->width), mesh->width);
 		i.y++;
 	}
-	dynarr_del(&screen_coord);
+	dynarr_del(&transformed_vertices);
 	return (1);
 }

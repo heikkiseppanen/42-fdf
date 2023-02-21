@@ -6,60 +6,67 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:05 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 13:43:29 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:59:53 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh.h"
 
-//static void get_height_values(t_mesh *mesh, float *min, float *max)
-//{
-//	const t_float3 *it = mesh->position_buffer.ptr;
-//	const t_float3 *end = it + mesh->position_buffer.size;
-//
-//	*min = 0;
-//	*max = 0;
-//	while (it != end)
-//	{
-//		if (it->y < *min)
-//			*min = it->y;
-//		else if (it->y > *max)
-//			*max = it->y;
-//		it++;
-//	}
-//}
+static void get_height_values(t_mesh *mesh, float *min, float *max)
+{
+	const t_vertex *it = mesh->vertex_buffer.ptr;
+	const t_vertex *end = it + mesh->vertex_buffer.size;
 
-//void	calculate_mesh_colors(t_mesh *mesh)
-//{
-//	float			max;
-//	float			min;
-//	int				vertex_count;
-//	t_float3		*position = mesh->position_buffer.ptr;
-//	unsigned int	*color = mesh->color_buffer.ptr;
-//
-//	vertex_count = mesh->position_buffer.size;
-//	get_height_values(mesh, &max, &min); 
-//	while (vertex_count--)
-//	{
-//		if (position->y >= 0)
-//			*color = 
-//		else
-//	}
-//}
+	*min = 0;
+	*max = 0;
+	while (it != end)
+	{
+		if (it->position.y < *min)
+			*min = it->position.y;
+		else if (it->position.y > *max)
+			*max = it->position.y;
+		it++;
+	}
+}
+
+void	calculate_mesh_colors(t_mesh *mesh)
+{
+	const t_float3	mid_color = {0.30, 0.34, 0.42};
+	float			max;
+	float			min;
+	t_vertex		*it;
+	t_vertex		*end;
+
+	get_height_values(mesh, &min, &max); 
+	it = mesh->vertex_buffer.ptr;
+	end = it + mesh->vertex_buffer.size;
+	while (it != end)
+	{
+		if (it->position.y > 0)
+			it->color = float3_lerp(mid_color,
+				(t_float3){0.75, 0.38, 0.42}, it->position.y / max);
+		else if (it->position.y < 0)
+			it->color = float3_lerp(mid_color,
+				(t_float3){0, 0, 1}, it->position.y / min);
+		else
+			it->color = mid_color;
+		it++;
+	}
+}
 
 void center_mesh(t_mesh *mesh)
 {
 	const float	offset_x = (float)(mesh->width - 1) / 2;
 	const float	offset_z = (float)(mesh->depth - 1) / 2;
-	t_float3	*it;
-	t_float3	*end;
+	t_vertex	*it;
+	t_vertex	*end;
 	
-	it = mesh->position_buffer.ptr;
-	end = it + mesh->position_buffer.size;
+	it = mesh->vertex_buffer.ptr;
+	end = it + mesh->vertex_buffer.size;
 	while (it != end)
 	{
-		it->x -= offset_x;
-		it->z -= offset_z;
+		it->position.x -= offset_x;
+		it->position.z -= offset_z;
 		it++;
 	}
 }

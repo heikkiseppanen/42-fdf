@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 15:23:23 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:37:35 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int	ft_abs(int i)
 {
 	return (i * ((i > 0) - (i < 0)));
 }
-
-// Bresenham line algorithm variation that tracks
 
 void	draw_line(t_framebuf *to, t_int2 a, t_int2 b, t_float3 c0, t_float3 c1)
 {
