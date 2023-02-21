@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 15:59:23 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:42:45 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,59 +39,55 @@ t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r)
 
 t_float4x4	float4x4_model(const t_transform *transform)
 {
-	const t_float4x4	move = float4x4_translation(&transform->position);
-	const t_float4x4	rotate = float4x4_rotation(&transform->rotation);
-	const t_float4x4	scale = float4x4_scaling(&transform->scale);
+	const t_float4x4	movement = float4x4_translation(&transform->position);
+	const t_float4x4	rotation = float4x4_rotation(&transform->rotation);
+	const t_float4x4	scaling = float4x4_scaling(&transform->scale);
 	t_float4x4			model_matrix;
 
-	model_matrix = float4x4_mul(&move, &rotate);
-	model_matrix = float4x4_mul(&model_matrix, &scale);
+	model_matrix = float4x4_mul(&movement, &rotation);
+	model_matrix = float4x4_mul(&model_matrix, &scaling);
 	return (model_matrix);
 }
 
-t_float4x4	float4x4_ortho(float size, float aspect, float zmin, float zmax)
+t_float4x4	float4x4_ortho(float size, float aspect, float near, float far)
 {
-	const t_float3	min = {-size * aspect, -size, zmin};
-	const t_float3	max = {size * aspect, size, zmax};
-	t_float4x4		proj;
+	t_float4x4		projection;
 
-	proj.a.x = 2 / (max.x - min.x);
-	proj.a.y = 0.0;
-	proj.a.z = 0.0;
-	proj.a.w = -((max.x + min.x) / (max.x - min.x));
-	proj.b.x = 0.0;
-	proj.b.y = 2 / (max.y - min.y);
-	proj.b.z = 0.0;
-	proj.b.w = -((max.y + min.y) / (max.y - min.y));
-	proj.c.x = 0.0;
-	proj.c.y = 0.0;
-	proj.c.z = -2 / (max.z - min.z);
-	proj.c.w = -((max.z + min.z) / (max.z - min.z));
-	proj.d = (t_float4){0.0, 0.0, 0.0, 1.0};
-	return (proj);
+	projection.a.x = 1 / size * aspect;
+	projection.a.y = 0.0;
+	projection.a.z = 0.0;
+	projection.a.w = 0.0;
+	projection.b.x = 0.0;
+	projection.b.y = 1 / size;
+	projection.b.z = 0.0;
+	projection.b.w = 0.0;
+	projection.c.x = 0.0;
+	projection.c.y = 0.0;
+	projection.c.z = -2 / (far - near);
+	projection.c.w = -((far + near) / (far - near));
+	projection.d = (t_float4){0.0, 0.0, 0.0, 1.0};
+	return (projection);
 }
 
-t_float4x4	float4x4_persp(float fov, float aspect, float zmin, float zmax)
+t_float4x4	float4x4_persp(float fov, float aspect, float near, float far)
 {
-	const float		size = tanf(fov / 2) * zmin;
-	const t_float3	min = {-size * aspect, -size, zmin};
-	const t_float3	max = {size * aspect, size, zmax};
-	t_float4x4		proj;
+	const float		size = tanf(fov / 2) * near;
+	t_float4x4		projection;
 
-	proj.a.x = (2 * min.z) / (max.x - min.x);
-	proj.a.y = 0.0;
-	proj.a.z = (max.x + min.x) / (max.x - min.x);
-	proj.a.w = 0.0;
-	proj.b.x = 0.0;
-	proj.b.y = (2 * min.z) / (max.y - min.y);
-	proj.b.z = (max.y + min.y) / (max.y - min.y);
-	proj.b.w = 0.0;
-	proj.c.x = 0.0;
-	proj.c.y = 0.0;
-	proj.c.z = -(max.z + min.z) / (max.z - min.z);
-	proj.c.w = (-2 * max.z * min.z) / (max.z - min.z);
-	proj.d = (t_float4){0.0, 0.0, -1.0, 0.0};
-	return (proj);
+	projection.a.x = near / size * aspect;
+	projection.a.y = 0.0;
+	projection.a.z = 0.0;
+	projection.a.w = 0.0;
+	projection.b.x = 0.0;
+	projection.b.y = near / size;
+	projection.b.z = 0.0;
+	projection.b.w = 0.0;
+	projection.c.x = 0.0;
+	projection.c.y = 0.0;
+	projection.c.z = -(far + near) / (far - near);
+	projection.c.w = (-2 * far * near) / (far - near);
+	projection.d = (t_float4){0.0, 0.0, -1.0, 0.0};
+	return (projection);
 }
 
 t_float4x4	float4x4_view(t_float3 pos, t_float3 target)
