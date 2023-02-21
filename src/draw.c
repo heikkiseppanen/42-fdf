@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 15:56:24 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:26:12 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static float calc_depth_offset(t_int2 delta, float d0, float d1)
 	return (depth_offset);
 }
 
-void	draw_line(t_frame *i, t_pixel a, t_pixel b)
+void	draw_line(t_frame *target, t_pixel a, t_pixel b)
 {
 	float		depth_offset;
 	t_float3	color_offset;
@@ -68,8 +68,6 @@ void	draw_line(t_frame *i, t_pixel a, t_pixel b)
 	
 	delta.x = ft_abs(b.position.x - a.position.x);
 	delta.y = -ft_abs(b.position.y - a.position.y);
-	if (!delta.x && !delta.y)
-		return ;
 	color_offset = calc_color_offset(delta, a.color, b.color);
 	depth_offset = calc_depth_offset(delta, a.depth, b.depth);
 	dir.x = -1 + (2 * (a.position.x < b.position.x));
@@ -77,14 +75,14 @@ void	draw_line(t_frame *i, t_pixel a, t_pixel b)
 	err.x = delta.x + delta.y;
 	while (a.position.x != b.position.x || a.position.y != b.position.y)
 	{
-		put_pixel(i, a.position, a.depth, a.color);
+		put_pixel(target, a.position, a.depth, a.color);
 		a.color = float3_add(a.color, color_offset);
 		a.depth += depth_offset;
 		err.y = 2 * err.x;
-		err.x += delta.y * (err.y * 2 >= delta.y);
-		a.position.x += dir.x * (err.y * 2 >= delta.y);
-		err.x += delta.x * (err.y * 2 <= delta.x);
-		a.position.y += dir.y * (err.y * 2 <= delta.x);
+		err.x += delta.y * (err.y >= delta.y);
+		a.position.x += dir.x * (err.y >= delta.y);
+		err.x += delta.x * (err.y <= delta.x);
+		a.position.y += dir.y * (err.y <= delta.x);
 	}
-	//put_pixel(i, a.position, a.depth, a.color);
+	put_pixel(target, a.position, a.depth, a.color);
 }
