@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 11:41:20 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:39:21 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,13 @@ int	window_init(t_window *empty, int width, int height, char *title)
 	return (1);
 }
 
-void	framebuf_clear(t_framebuf *buf)
+void	framebuf_clear(t_framebuf *buf, unsigned int color)
 {
-	ft_bzero(buf->data, buf->width * buf->height * buf->color_bytes);
+	unsigned int *it = (unsigned int *)buf->data;
+	unsigned int *end = it + buf->width * buf->height;
+
+	while (it != end)
+		*it++ = color;
 }
 
 void	window_swap_buf(t_window *win)

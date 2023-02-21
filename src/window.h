@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 09:17:15 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 10:38:56 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	window_del(t_window *win);
 
 void	window_swap_buf(t_window *win);
 
-void	framebuf_clear(t_framebuf *buf);
+void	framebuf_clear(t_framebuf *buf, unsigned int color);
 
 #endif
