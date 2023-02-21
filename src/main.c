@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:50:44 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 09:36:10 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:11:52 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 {
 	t_app	fdf;
 
+	fdf = (t_app){};
 	if (argc != 2)
 	{
 		ft_printf("Use: fdf <map_path>");
