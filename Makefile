@@ -81,6 +81,7 @@ ifeq ($ARCH, Linux)
 endif
 
 fclean: clean
+	make fclean -C $(FT_DIR)
 	/bin/rm -f $(NAME)
 
 re: fclean all
