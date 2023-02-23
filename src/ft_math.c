@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 09:02:06 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 15:47:07 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:13:23 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,4 @@ float	clamp(float value, float min, float max)
 float	rad(float deg)
 {
 	return (deg * (M_PI / 180));
-}
-
-float	deg(float rad)
-{
-	return (rad * (180 / M_PI));
 }

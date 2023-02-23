@@ -6,15 +6,13 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 11:39:09 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:12:18 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 
 #include "input.h"
-
-#include <math.h>
 
 void	cam_init(t_cam *empty, float fov, int is_ortho)
 {

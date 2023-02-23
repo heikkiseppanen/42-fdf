@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 11:52:15 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 09:39:43 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:11:36 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "window.h"
 #include "rendering.h"
 
-#include <libft.h>
 #include <mlx.h>
 
 int	app_init(t_app *empty, char *mesh_path)

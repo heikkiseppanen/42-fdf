@@ -6,13 +6,13 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:09:05 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 11:17:13 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:13:09 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-#include <math.h> // cosf, sinf
+#include <math.h>
 
 t_float4x4	float4x4_translation(t_float3 pos)
 {

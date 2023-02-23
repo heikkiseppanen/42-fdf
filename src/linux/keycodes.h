@@ -6,14 +6,12 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 17:38:42 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/16 17:11:33 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 12:10:12 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYCODES_H
 # define KEYCODES_H
-
-// TODO This is not portable, should use X11 directly to find these out
 
 enum e_key
 {
