@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 10:53:18 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 21:42:45 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:12:22 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r)
 
 t_float4x4	float4x4_model(const t_transform *transform)
 {
-	const t_float4x4	movement = float4x4_translation(&transform->position);
-	const t_float4x4	rotation = float4x4_rotation(&transform->rotation);
-	const t_float4x4	scaling = float4x4_scaling(&transform->scale);
+	const t_float4x4	movement = float4x4_translation(transform->position);
+	const t_float4x4	rotation = float4x4_rotation(transform->rotation);
+	const t_float4x4	scaling = float4x4_scaling(transform->scale);
 	t_float4x4			model_matrix;
 
 	model_matrix = float4x4_mul(&movement, &rotation);
@@ -90,20 +90,11 @@ t_float4x4	float4x4_persp(float fov, float aspect, float near, float far)
 	return (projection);
 }
 
-t_float4x4	float4x4_view(t_float3 pos, t_float3 target)
+t_float4x4	float4x4_view(t_float3 pos, t_float3 x, t_float3 y, t_float3 z)
 {
 	t_float4x4	axis;
 	t_float4x4	offset;
-	t_float3	x;
-	t_float3	y;
-	t_float3	z;
 
-	z = float3_sub(pos, target);
-	z = float3_normalize(z);
-	y = (t_float3){0.0, 1.0, 0.0};
-	x = float3_cross(y, z);
-	x = float3_normalize(x);
-	y = float3_cross(z, x);
 	axis.a = (t_float4){x.x, x.y, x.z, 0.0};
 	axis.b = (t_float4){y.x, y.y, y.z, 0.0};
 	axis.c = (t_float4){z.x, z.y, z.z, 0.0};

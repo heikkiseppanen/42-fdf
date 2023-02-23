@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 21:23:25 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:10:26 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ float		float3_len(t_float3 vector);
 t_float4x4	float4x4_mul(const t_float4x4 *l, const t_float4x4 *r);
 t_float4x4	float4x4_ortho(float size, float aspect, float near, float far);
 t_float4x4	float4x4_persp(float fov, float aspect, float near, float far);
-t_float4x4	float4x4_view(t_float3 pos, t_float3 target);
+t_float4x4	float4x4_view(t_float3 pos, t_float3 x, t_float3 y, t_float3 z);
 t_float4x4	float4x4_model(const t_transform *transform);
-t_float4x4	float4x4_translation(const t_float3 *pos);
-t_float4x4	float4x4_rotation(const t_float3 *rot);
-t_float4x4	float4x4_scaling(const t_float3 *scale);
+t_float4x4	float4x4_translation(t_float3 pos);
+t_float4x4	float4x4_rotation(t_float3 rot);
+t_float4x4	float4x4_scaling(t_float3 scale);
 t_float4x4	float4x4_ax_rotation(t_float3 axis, double rad);
 
 #endif
