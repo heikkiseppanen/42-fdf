@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:55 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 13:41:27 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:47:16 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_window
 	void		*mlx_image;
 	int			width;
 	int			height;
-	t_frame	framebuffer;
+	t_frame		framebuffer;
 }	t_window;
 
 enum e_window_event_type

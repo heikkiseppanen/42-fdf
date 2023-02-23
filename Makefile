@@ -51,8 +51,7 @@ FT_LD := -L ./third-party/libft -lft
 
 CC := cc
 INCLUDE := -I$(MLX_DIR) -I$(FT_DIR) -I$(SRCDIR)
-CFLAGS := -march=skylake -O3 -Wall -Werror -Wextra $(INCLUDE)
-## CFLAGS := -g -Wall -Werror -Wextra $(INCLUDE)
+CFLAGS := -march=native -Ofast -Wall -Werror -Wextra $(INCLUDE)
 LDFLAGS := -lm $(MLX_LD) $(FT_LD) 
 
 # Rules

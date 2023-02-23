@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:17:21 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 14:51:47 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:47:44 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include "window.h"
 #include "ft_math.h"
 
-#include <mlx.h> // For M_PI
-
+#include <mlx.h>
 
 static t_pixel	vert_to_pixel(t_vertex vertex, t_float4x4 *mat, t_frame *buf)
 {

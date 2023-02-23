@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 08:14:29 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 22:26:12 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:49:30 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_abs(int i)
 	return (i * ((i > 0) - (i < 0)));
 }
 
-static t_float3 calc_color_offset(t_int2 delta, t_float3 c0, t_float3 c1)
+static t_float3	calc_color_offset(t_int2 delta, t_float3 c0, t_float3 c1)
 {
 	t_float3	color_offset;
 
@@ -47,7 +47,7 @@ static t_float3 calc_color_offset(t_int2 delta, t_float3 c0, t_float3 c1)
 	return (color_offset);
 }
 
-static float calc_depth_offset(t_int2 delta, float d0, float d1)
+static float	calc_depth_offset(t_int2 delta, float d0, float d1)
 {
 	float	depth_offset;
 
@@ -65,7 +65,7 @@ void	draw_line(t_frame *target, t_pixel a, t_pixel b)
 	t_int2		delta;
 	t_int2		dir;
 	t_int2		err;
-	
+
 	delta.x = ft_abs(b.position.x - a.position.x);
 	delta.y = -ft_abs(b.position.y - a.position.y);
 	color_offset = calc_color_offset(delta, a.color, b.color);

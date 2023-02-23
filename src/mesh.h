@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 08:26:07 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 09:47:10 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:44:11 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 typedef struct s_vertex
 {
-	t_float3 position;
-	t_float3 color;
+	t_float3	position;
+	t_float3	color;
 }	t_vertex;
 
 typedef struct s_mesh

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 09:26:30 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/20 15:46:06 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:49:00 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_float3	float3_normalize(t_float3 vector)
 	const float	len = float3_len(vector);
 
 	vector.x /= len;
-	vector.y /= len; 
+	vector.y /= len;
 	vector.z /= len;
 	return (vector);
 }

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 12:59:25 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 21:56:22 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:47:06 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ int	window_init(t_window *empty, int width, int height, char *title)
 
 void	frame_clear(t_frame *buf, unsigned int color)
 {
-	unsigned int	*color_it = (unsigned int *)buf->data;
-	unsigned int	*color_end = color_it + buf->width * buf->height;
-	float			*depth_it = buf->depth_buffer;
-	float			*depth_end = depth_it + buf->width * buf->height;
+	unsigned int	*color_it;
+	unsigned int	*color_end;
+	float			*depth_it;
+	float			*depth_end;
 
+	color_it = (unsigned int *)buf->data;
+	color_end = color_it + buf->width * buf->height;
+	depth_it = buf->depth_buffer;
+	depth_end = depth_it + buf->width * buf->height;
 	while (color_it != color_end)
 		*color_it++ = color;
 	while (depth_it != depth_end)

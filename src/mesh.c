@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 11:36:35 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:34:37 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static int	parse_map(t_mesh *mesh, const t_dynarr *map_data)
 			it++;
 		}
 	}
-	if (mesh->vertex_buffer.size % mesh->depth != 0)
-		return (0);
 	mesh->width = mesh->vertex_buffer.size / mesh->depth;
 	return (1);
 }
