@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 22:04:08 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:39:09 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	cam_init(t_cam *empty, float fov, int is_ortho)
 	empty->aspect = 1.0;
 	empty->near = 0.1;
 	empty->far = 100;
+	empty->target = (t_float3){};
+	empty->x = (t_float3){1.0, 0.0, 0.0};
+	empty->y = (t_float3){0.0, 1.0, 0.0};
+	empty->z = (t_float3){0.0, 0.0, 1.0};
 }
 
 void	cam_update(t_cam *camera, t_transform *transform, t_input *input)
@@ -44,6 +48,12 @@ void	cam_update(t_cam *camera, t_transform *transform, t_input *input)
 		camera->fov += mouse_y;
 		camera->fov = clamp(camera->fov, rad(1), rad(110));
 	}
+	camera->z = float3_sub(transform->position, camera->target);
+	camera->z = float3_normalize(camera->z);
+	camera->y = (t_float3){0.0, 1.0, 0.0};
+	camera->x = float3_cross(camera->y, camera->z);
+	camera->x = float3_normalize(camera->x);
+	camera->y = float3_cross(camera->z, camera->x);
 }
 
 t_float4x4	cam_calc_projection(const t_cam *view)
@@ -61,9 +71,8 @@ t_float4x4	cam_calc_projection(const t_cam *view)
 	}
 }
 
-t_float4x4	cam_calc_view(const t_transform *transform)
+t_float4x4	cam_calc_view(const t_cam *camera, const t_transform *transform)
 {
-	const t_float3	target = (t_float3){0.0f, 0.0f, 0.0f};
-
-	return (float4x4_view(transform->position, target));
+	return (float4x4_view(transform->position,
+			camera->x, camera->y, camera->z));
 }

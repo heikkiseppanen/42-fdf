@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 21:57:23 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:38:43 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 
 static	t_float4x4	calc_scene_matrix(t_scene *source)
 {
-	const t_float4x4	view = cam_calc_view(&source->camera_transform);
-	const t_float4x4	proj = cam_calc_projection(&source->camera);
-	const t_float4x4	model = float4x4_model(&source->mesh_transform);
-	t_float4x4			scene_matrix;
+	t_float4x4	view;
+	t_float4x4	proj;
+	t_float4x4	model;
+	t_float4x4	scene_matrix;
 
+	view = cam_calc_view(&source->camera, &source->camera_transform);
+	proj = cam_calc_projection(&source->camera);
+	model = float4x4_model(&source->mesh_transform);
 	scene_matrix = float4x4_mul(&proj, &view);
 	scene_matrix = float4x4_mul(&scene_matrix, &model);
 	return (scene_matrix);
@@ -60,6 +63,15 @@ void	scene_del(t_scene *scene)
 
 void	scene_update(t_scene *scene, t_input *input)
 {
+	const float		mouse_x = input->mouse_movement.x * input->mouse_sens;
+	const float		mouse_y = input->mouse_movement.y * input->mouse_sens;
+	t_float3 *const	pos = &scene->mesh_transform.position;
+
 	cam_update(&scene->camera, &scene->camera_transform, input);
+	if (input->move)
+	{
+		*pos = float3_add(*pos, float3_scalar(scene->camera.x, -mouse_x * 2));
+		*pos = float3_add(*pos, float3_scalar(scene->camera.y, mouse_y * 2));
+	}
 	scene->scene_matrix = calc_scene_matrix(scene);
 }

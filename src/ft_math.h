@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 09:59:59 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 11:10:26 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:18:20 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ t_float4x4	float4x4_model(const t_transform *transform);
 t_float4x4	float4x4_translation(t_float3 pos);
 t_float4x4	float4x4_rotation(t_float3 rot);
 t_float4x4	float4x4_scaling(t_float3 scale);
-t_float4x4	float4x4_ax_rotation(t_float3 axis, double rad);
 
 #endif
