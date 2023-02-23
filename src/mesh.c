@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:48:33 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 10:34:37 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:51:30 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 
 #define MAP_READ_CHUNK_SIZE 64
 #define MIN_VERTS 4
@@ -26,6 +27,11 @@ static int	read_map(t_dynarr *buffer, const char *filepath)
 	ssize_t		read_output;
 
 	read_output = 1;
+	if (fd < 0)
+	{
+		perror("Unable to open file");
+		return (0);
+	}
 	while (read_output > 0)
 		read_output = dynarr_read(buffer, fd, MAP_READ_CHUNK_SIZE);
 	close(fd);

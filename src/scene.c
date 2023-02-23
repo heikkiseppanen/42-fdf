@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 11:38:43 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/02/23 11:45:18 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	scene_update(t_scene *scene, t_input *input)
 	cam_update(&scene->camera, &scene->camera_transform, input);
 	if (input->move)
 	{
-		*pos = float3_add(*pos, float3_scalar(scene->camera.x, -mouse_x * 2));
-		*pos = float3_add(*pos, float3_scalar(scene->camera.y, mouse_y * 2));
+		*pos = float3_add(*pos, float3_scalar(scene->camera.x, -mouse_x * 4));
+		*pos = float3_add(*pos, float3_scalar(scene->camera.y, mouse_y * 4));
 	}
 	scene->scene_matrix = calc_scene_matrix(scene);
 }
