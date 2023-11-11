@@ -6,12 +6,17 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 14:23:20 by hseppane          #+#    #+#             */
-/*   Updated: 2022/12/17 12:06:45 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:12:13 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEYCODES_H
 # define KEYCODES_H
+
+# define MOUSE_SENSITIVITY 0.1f
+# define KEY_EVENTS 0
+# define BUTTON_EVENTS 0
+# define MOUSE_EVENTS 0
 
 enum e_key
 {

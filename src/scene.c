@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:16:58 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 11:45:18 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/11/11 11:59:54 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include <math.h>
 
-#define ISO_ANGLE 35.264
+#define ISOMETRIC_ANGLE 35.264
 
 static	t_float4x4	calc_scene_matrix(t_scene *source)
 {
@@ -41,17 +41,17 @@ int	scene_init(t_scene *empty, const char *mesh_path)
 	}
 	cam_init(&empty->camera, rad(90), 0);
 	t = &empty->camera_transform;
-	t->position = (t_float3){0.0, 0.0, 1.0};
-	t->position = float3_rot_x(t->position, rad(-ISO_ANGLE));
-	t->position = float3_rot_y(t->position, rad(45));
-	t->position = float3_scalar(t->position, empty->mesh.width * 1.2);
+	t->position = (t_float3){0.0f, 0.0f, 1.0f};
+	t->position = float3_rot_x(t->position, rad(-ISOMETRIC_ANGLE));
+	t->position = float3_rot_y(t->position, rad(45.0f));
+	t->position = float3_scalar(t->position, empty->mesh.width * 1.2f);
 	empty->camera.far = float3_len(t->position) * 4;
-	empty->camera.near = empty->camera.far * 0.5;
+	empty->camera.near = empty->camera.far * 0.5f;
 	empty->camera.ortho_size = empty->mesh.width / 2;
 	t = &empty->mesh_transform;
-	t->position = (t_float3){0.0, 0.0, 0.0};
-	t->rotation = (t_float3){0.0, 0.0, 0.0};
-	t->scale = (t_float3){1.0, 1.0, 1.0};
+	t->position = (t_float3){0.0f, 0.0f, 0.0f};
+	t->rotation = (t_float3){0.0f, 0.0f, 0.0f};
+	t->scale = (t_float3){1.0f, 1.0f, 1.0f};
 	empty->scene_matrix = calc_scene_matrix(empty);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:47:05 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 17:09:21 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:10:58 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	calculate_mesh_colors(t_mesh *mesh)
 					(t_float3){0.75, 0.38, 0.42}, it->position.y / max);
 		else if (it->position.y < 0)
 			it->color = float3_lerp(mid_color,
-				(t_float3){0.64, 0.75, 0.55}, it->position.y / min);
+					(t_float3){0.64, 0.75, 0.55}, it->position.y / min);
 		else
 			it->color = mid_color;
 		it++;

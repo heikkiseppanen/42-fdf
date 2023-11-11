@@ -6,7 +6,7 @@
 /*   By: hseppane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:31:54 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/23 12:12:18 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:07:58 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ void	cam_update(t_cam *camera, t_transform *transform, t_input *input)
 	camera->is_ortho = !input->projection_mode;
 	if (input->rotate)
 	{
-		transform->position = float3_rot_y(transform->position, mouse_x);
+		transform->position = float3_rot_y(transform->position, rad(mouse_x));
 	}
 	if (input->zoom)
 	{
-		camera->ortho_scale += mouse_y;
+		camera->ortho_scale += rad(mouse_y);
 		camera->ortho_scale = clamp(camera->ortho_scale, 0.1, 3.0);
-		camera->fov += mouse_y;
+		camera->fov += rad(mouse_y);
 		camera->fov = clamp(camera->fov, rad(1), rad(110));
 	}
 	camera->z = float3_sub(transform->position, camera->target);

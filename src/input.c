@@ -6,19 +6,19 @@
 /*   By: hseppane <marvin@42.ft>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 14:27:03 by hseppane          #+#    #+#             */
-/*   Updated: 2023/02/21 10:07:02 by hseppane         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:11:14 by hseppane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "app.h"
+
+#include <math.h>
 
 #ifdef __linux__
 # include "linux/keycodes.h"
 #else
 # include "macos/keycodes.h"
 #endif
-
-#include <math.h> // M_PI
 
 static int	keydown_hook(int keycode, t_input *input)
 {
@@ -69,10 +69,10 @@ void	input_init(t_input *empty, void *mlx_window)
 	empty->move = 0;
 	empty->rotate = 0;
 	empty->zoom = 0;
-	empty->mouse_sens = 0.01;
+	empty->mouse_sens = MOUSE_SENSITIVITY;
 	empty->projection_mode = 0;
-	mlx_hook(mlx_window, ON_KEYDOWN, 0, keydown_hook, empty);
-	mlx_hook(mlx_window, ON_MOUSEDOWN, 0, mousedown_hook, empty);
-	mlx_hook(mlx_window, ON_MOUSEUP, 0, mouseup_hook, empty);
-	mlx_hook(mlx_window, ON_MOUSEMOVE, 0, mousemove_hook, empty);
+	mlx_hook(mlx_window, ON_KEYDOWN, KEY_EVENTS, keydown_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEDOWN, BUTTON_EVENTS, mousedown_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEUP, BUTTON_EVENTS, mouseup_hook, empty);
+	mlx_hook(mlx_window, ON_MOUSEMOVE, MOUSE_EVENTS, mousemove_hook, empty);
 }
