@@ -23,3 +23,9 @@ make
 
 > fdf ./map.txt
 ```
+
+# Input
+- Left Mouse   : Translate while pressed
+- Right Mouse  : Rotate along Y-axis while pressed
+- Middle Mouse : Zoom while pressed
+- P Key        : Switch between orthographic and perspective
